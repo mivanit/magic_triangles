@@ -10,11 +10,29 @@ extern pair<int,int> * trind;
 class Triangle
 {
 public:
+	//default constructor
 	Triangle(int size)
 	{
 		n = size;
-		cards = new Card[n+1];
+		num_cards = n * (n+1) / 2;
+		maxindex = num_cards + 1;
+		cards = new Card[maxindex];
 
+	}
+
+	//copy constructor
+	Triangle(Triangle * x)
+	{
+		n = x->n;
+		num_cards = x->num_cards;
+		maxindex = num_cards + 1;
+		cards = new Card[maxindex];
+
+		//loop to copy card data
+		for (int i = 1; i < maxindex; i++)
+		{
+			cards[i] = (x->cards)[i];
+		}
 	}
 
 	//starts at 1, pyramid upwards
@@ -24,6 +42,37 @@ public:
 	//card for using to_index
 	Card crd;
 
+	//recursive(?) function for checking # of permutations possible in this triangle
+	//makes copies of the current triangle with 1 card added, then calls itself
+	int check_permutations(Triangle * orig)
+	{
+		//subtotal for this instance
+		int subtotal = 0;
+
+		//loop through all remaining empty cards
+		for (int i = 0; i < maxindex; i++)
+		{
+
+
+		}
+
+
+
+
+
+
+	}
+
+	//recursive function for placing a card
+
+	//loop until all determined cards are marked as such
+	void fill_tri_loop()
+	{
+		while ( !( fill_tri() ) ) {}
+	}
+
+
+	//test all undet cards, fill them
 	bool fill_tri()
 	{
 		bool result = true;
@@ -37,6 +86,7 @@ public:
 		}
 	}
 
+	//test a card, make it determined if need be
 	bool fill_card(int index)
 	{
 		//r/p ==> row/place
@@ -99,6 +149,7 @@ public:
 
 private:
 	int n;
+	int num_cards;
 
 
 

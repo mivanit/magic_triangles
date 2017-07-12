@@ -46,4 +46,12 @@ public:
 	//size of triangle
 	int n;
 
+	//assignment operator
+	void operator=(Card * rhs)
+	{
+		index = rhs->index;
+		n = rhs->n;
+		det = rhs->det;
+	}
+
 };//end of card class
