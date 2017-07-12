@@ -3,7 +3,7 @@
 
 #include <tuple>
 #include <iostream>
-//#include "triangle.cpp"
+#include "triangle.cpp"
 
 using namespace std;
 
@@ -55,11 +55,11 @@ void gen_tri_index(int n)
 			//else, iterate place
 			p++;
 		}
-		//put in error checking for p > r?
 	}
 }
 
 
+		//put in error checking for p > r?
 void print_trind_test()
 {
 	gen_tri_index(10);

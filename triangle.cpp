@@ -5,6 +5,8 @@
 
 using namespace std;
 
+extern pair<int,int> * trind;
+
 class Triangle
 {
 public:
@@ -20,13 +22,13 @@ public:
 	Card * cards;
 
 	//card for using to_index
-	Card crd();
+	Card crd;
 
 	bool fill_tri()
 	{
 		bool result = true;
 
-		for (int i = 1; i < size; i++)
+		for (int i = 1; i < n; i++)
 		{
 			if (fill_card(i) == false)
 			{
@@ -43,26 +45,37 @@ public:
 		int r = trind[index].first;
 		int p = trind[index].second;
 
-		//temp r/p for checking
-		int r_temp1;
-		int p_temp1;
-
-		int r_temp2;
-		int p_temp2;
-
 		//3 cases for fill:
 		//2 cards above, or 2 cards to either side & below
 
-		//check above
-		bool test_up = 
-
-		//check left
-		bool test_left =
-
-		//check right
-		bool test_right =
+		bool changed = false;
 
 
+		//TODO: add error checking for if more than one set tries to define this card
+		//this shouldnt be possible but I haven't proved it yet so idk
+		if (chk_adj(r,p,1,0,1,1))
+		{
+			//check above
+			changed = true;
+		}
+		else if (chk_adj(r,p,0,-1,-1,-1))
+		{
+			//check left
+			changed = true;
+		}
+		else if	(chk_adj(r,p,0,1,-1,0))
+		{
+			//check right
+			changed = true;
+		}
+
+		//change actual value of card
+		if (changed)
+		{
+			cards[index].det = true;
+		}
+
+		return changed;
 	}
 
 	//for checking 2 adjacent cards
@@ -70,19 +83,17 @@ public:
 	//USAGE:
 	// takes original p/r, then modifiers
 	// original r, p, 1st r mod, p mod, 2nd r mod, p mod
-	bool check_2_adj(int r, int p, int r1, int p1, int r2, int p2)
+	bool chk_adj(int r, int p, int r1, int p1, int r2, int p2)
 	{
-		bool test1 = cards[crd.to_idex(r+r1,p+p1)].det;
-		bool test2 = cards[crd.to_idex(r+r2,p+p2)].det;
+		bool test1 = cards[crd.to_index(r+r1,p+p1)].det;
+		bool test2 = cards[crd.to_index(r+r2,p+p2)].det;
 
 		return (test1 && test2);
 	}
 
 	void draw_tri()
 	{
-
-
-
+		//TODO
 	}
 
 
