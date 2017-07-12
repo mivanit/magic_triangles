@@ -19,7 +19,9 @@ pair<int,int> * trind;
 
 int main()
 {
-	print_trind_test();
+
+
+	
 }
 
 //generate the index out to a size

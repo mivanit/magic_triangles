@@ -44,7 +44,7 @@ public:
 
 	//recursive(?) function for checking # of permutations possible in this triangle
 	//makes copies of the current triangle with 1 card added, then calls itself
-	int check_permutations(Triangle * orig)
+	int check_permutations()
 	{
 		//subtotal for this instance
 		int subtotal = 0;
@@ -52,15 +52,26 @@ public:
 		//loop through all remaining empty cards
 		for (int i = 0; i < maxindex; i++)
 		{
+			//if card is not determined,
+			//copy tri, fill card, and recurse
+			if ( !(cards[i].det) )
+			{
+				//create copy
+				Triangle subtri = this;
 
+				//set card at index to determined
+				(subtri.cards[i]).det = true;
 
+				//fill
+				subtri.fill_tri_loop()
+
+				//recurse, add to subtotal
+				subtotal = subtotal + subtri.check_permutations();
+			}
 		}
 
-
-
-
-
-
+		//return subtotal
+		return subtotal;
 	}
 
 	//recursive function for placing a card
