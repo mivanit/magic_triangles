@@ -7,6 +7,7 @@
 
 using namespace std;
 
+int test_tri(int n);
 void gen_tri_index(int n);
 void print_trind_test();
 
@@ -19,9 +20,23 @@ pair<int,int> * trind;
 
 int main()
 {
+	test_tri(1);
+	test_tri(2);
+	test_tri(3);
+	//test_tri(4);
+}
 
 
-	
+int test_tri(int n)
+{
+	//create triangle
+	Triangle tester = Triangle(n);
+
+	//calculate
+	int comb = tester.perm_main();
+	cout << "n:\t" << n << "\tc:\t" << comb << endl;
+
+	return comb;
 }
 
 //generate the index out to a size

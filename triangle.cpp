@@ -42,9 +42,17 @@ public:
 	//card for using to_index
 	Card crd;
 
+	//check_permutations main call
+	int perm_main()
+	{
+		return check_permutations(n);
+	}
+
 	//recursive(?) function for checking # of permutations possible in this triangle
+	//with x cards
 	//makes copies of the current triangle with 1 card added, then calls itself
-	int check_permutations()
+	//takes card being placed # as input
+	int check_permutations(int x)
 	{
 		//subtotal for this instance
 		int subtotal = 0;
@@ -52,26 +60,33 @@ public:
 		//loop through all remaining empty cards
 		for (int i = 0; i < maxindex; i++)
 		{
-			//if card is not determined,
-			//copy tri, fill card, and recurse
+			//if card is not determined:
 			if ( !(cards[i].det) )
 			{
-				//create copy
-				Triangle subtri = this;
+				//add 1 for placement of this card
+				subtotal++;
 
-				//set card at index to determined
-				(subtri.cards[i]).det = true;
+				//if not last card
+				//copy tri, fill card, and recurse
+				if (x < n)
+				{
+					//create copy
+					Triangle subtri = Triangle(this);
 
-				//fill
-				subtri.fill_tri_loop()
+					//set card at index to determined
+					(subtri.cards[i]).det = true;
 
-				//recurse, add to subtotal
-				subtotal = subtotal + subtri.check_permutations();
+					//fill
+					subtri.fill_tri_loop();
+
+					//recurse with next card, add to subtotal
+					subtotal = subtotal + subtri.check_permutations(x + 1);
+				}
 			}
-		}
 
-		//return subtotal
-		return subtotal;
+			//return subtotal
+			return subtotal++;
+		}
 	}
 
 	//recursive function for placing a card
@@ -161,8 +176,6 @@ public:
 private:
 	int n;
 	int num_cards;
-
-
-
+	int maxindex;
 
 };//end of triangle class
