@@ -261,10 +261,6 @@ public:
 			cout << " ";
 		}
 
-		//odd numbered rows are offset by one space
-		//if (r%2 != 0)
-		//{cout << " ";}
-
 		for (int p = 1; p <= r; p++)
 		{
 			int index = crd.to_index(r, p);
