@@ -43,10 +43,10 @@ public:
 	//check_permutations main call
 	int perm_main()
 	{
-		//TODO - account for the fact that placed cards should not be distinct
-		//divide by (n!) probably
-		//this means whole algorithm needs to be redone
-		return check_permutations(1)/factorial(n);
+		//to account for the fact that placed cards should not be distinct
+		//store the largest card index that has been tested
+		//
+		return check_permutations(1);
 	}
 
 	//recursive(?) function for checking # of permutations possible in this triangle
@@ -63,11 +63,14 @@ public:
 		//loop through all remaining empty cards
 		for (int i = 1; i <= k; i++)
 		{
-			//if card is not determined:
-			if ( !(cards[i].det) )
+			//if card is not determined, and has not yet been checked:
+			if ( !(cards[i].det) && (i > chk_idx))
 			{
 				//add 1 for placement of this card
 				sub_total++;
+
+				//mark this card as checked in the index
+				
 
 				//if not last card
 				//copy tri, fill card, and recurse
@@ -234,5 +237,7 @@ private:
 	int n;
 	//total number of indecies
 	int k;
+	//largest card index checked
+	int chk_idx = 0;
 
 };//end of triangle class
