@@ -130,32 +130,17 @@ public:
 		return changed;
 	}
 
-	//test a card, make it determined if need be
+	//checking for triangle corners of (3^x)+1 tris inside
+
+	//main function for filling a card
 	bool fill_card(int index)
 	{
 		bool changed = false;
-
-		//r/p ==> row/place
-
-		//get r/p of our card
-		int r = trind[index].first;
-		int p = trind[index].second;
+		bool loop_continue;
+		int i = 0;
 
 		//TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
-
-
-		//if not changed, return false
-		return false;
-	}
-
-	//checking for triangle corners of (3^x)+1 tris inside
-
-	//main function
-	bool chk_corners(int index)
-	{
-		bool loop_continue;
-		int i = 0;
 
 		while (loop_continue)
 		{
@@ -163,7 +148,14 @@ public:
 			if ( ((3^i) + 1) < n )
 			{
 				//call corner checking function
-				chk_corner_tri( index, ((3^i) + 1) );
+				if ( chk_corner_tri( index, ((3^i) + 1) ) )
+				{
+					//change the actual card
+					index.det = true;
+
+					//mark that it is changed
+					changed = true;
+				}
 
 				//iterate counter
 				i++;
