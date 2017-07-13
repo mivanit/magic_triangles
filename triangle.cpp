@@ -10,6 +10,17 @@ extern pair<int,int> * trind;
 class Triangle
 {
 public:
+
+
+	/*
+	 ██████ ████████  ██████  ██████
+	██         ██    ██    ██ ██   ██
+	██         ██    ██    ██ ██████
+	██         ██    ██    ██ ██   ██
+	 ██████    ██     ██████  ██   ██
+	 */
+
+
 	//default constructor
 	Triangle(int size)
 	{
@@ -36,12 +47,17 @@ public:
 		}
 	}
 
-	//starts at 1, pyramid upwards
-	//index starts from left side
-	Card * cards;
 
-	//card for using to_index
-	Card crd;
+
+	/*
+	 ██████ ██   ██ ██   ██
+	██      ██   ██ ██  ██
+	██      ███████ █████
+	██      ██   ██ ██  ██
+	 ██████ ██   ██ ██   ██
+	*/
+
+
 
 	//check_permutations main call
 	int perm_main()
@@ -103,7 +119,6 @@ public:
 					cout << "exit recursion\n";
 				}
 			}
-
 
 			//return subtotal
 			return sub_total;
@@ -249,6 +264,20 @@ public:
 		}
 	}
 
+
+
+
+	/*
+	██████  ██████   █████  ██     ██
+	██   ██ ██   ██ ██   ██ ██     ██
+	██   ██ ██████  ███████ ██  █  ██
+	██   ██ ██   ██ ██   ██ ██ ███ ██
+	██████  ██   ██ ██   ██  ███ ███
+	*/
+
+
+
+
 	//draw the row r
 	void draw_tri_row(int r)
 	{
@@ -290,12 +319,30 @@ public:
 	}
 
 
-private:
+
+
+	/*
+	██    ██  █████  ██████  ███████
+	██    ██ ██   ██ ██   ██ ██
+	██    ██ ███████ ██████  ███████
+	 ██  ██  ██   ██ ██   ██      ██
+	  ████   ██   ██ ██   ██ ███████
+	*/
+
+
+
 	//side length of triangle
 	int n;
 	//total number of indecies
 	int k;
 	//largest card index checked
 	int chk_idx = 0;
+
+	//starts at 1, pyramid upwards
+	//index starts from left side
+	Card * cards;
+
+	//card for using to_index
+	Card crd;
 
 };//end of triangle class
