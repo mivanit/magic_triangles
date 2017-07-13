@@ -141,38 +141,12 @@ public:
 		int r = trind[index].first;
 		int p = trind[index].second;
 
-		//3 cases for fill:
-		//2 cards above, or 2 cards to either side & below
-
 		//TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
 
-		//check above
-		bool test_U = chk_adj(r,p,1,0,1,1);
-
-		//check left
-		bool test_L = chk_adj(r,p,0,-1,-1,-1);
-
-		//check right
-		bool test_R = chk_adj(r,p,0,1,-1,0);
-
-		//test if value should be changed
-		if (test_U || test_L || test_R)
-		{
-			//change actual value of card
-			cards[index].det = true;
-
-			return true;
-		}
 
 		//if not changed, return false
 		return false;
-	}
-
-	//checking for triangles of size 2
-	bool chk_2tri(int index)
-	{
-
 	}
 
 	//checking for triangle corners of (3^x)+1 tris inside
@@ -181,7 +155,7 @@ public:
 	bool chk_corners(int index)
 	{
 		bool loop_continue;
-		int i = 1;
+		int i = 0;
 
 		while (loop_continue)
 		{
