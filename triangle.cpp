@@ -165,6 +165,8 @@ public:
 				loop_continue = false;
 			}
 		}
+
+		return changed;
 	}
 
 	//checks for the x-th (3^x)+1 tri at an index
