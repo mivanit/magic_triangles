@@ -29,12 +29,16 @@ int main()
 
 int test_tri(int n)
 {
+	cout << "testing tri of size " << n << endl;
+
 	//create triangle
 	Triangle tester = Triangle(n);
 
 	//calculate
 	int comb = tester.perm_main();
 	cout << "n:\t" << n << "\tc:\t" << comb << endl;
+
+	cout << "tri of size " << n << " complete!" << "\n\n";
 
 	return comb;
 }
