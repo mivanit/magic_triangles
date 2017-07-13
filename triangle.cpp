@@ -66,19 +66,15 @@ public:
 				//add 1 for placement of this card
 				subtotal++;
 
-				cout << "test1\n";
 				//if not last card
 				//copy tri, fill card, and recurse
-				if (x < n)
+				if (x <= n)
 				{
-					cout << "test2\n";
 					//create copy
 					Triangle subtri = Triangle(this);
 
 					//set card at index to determined
 					(subtri.cards[i]).det = true;
-
-					cout << "test3\n";
 
 					//fill
 					subtri.fill_tri_loop();
@@ -87,6 +83,7 @@ public:
 
 					//recurse with next card, add to subtotal
 					subtotal = subtotal + subtri.check_permutations(x + 1);
+					cout << subtotal << endl;
 				}
 			}
 
@@ -145,19 +142,18 @@ public:
 
 		//TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
-		if (chk_adj(r,p,1,0,1,1))
+
+		//check above
+		bool test_U = chk_adj(r,p,1,0,1,1);
+
+		//check left
+		bool test_L = chk_adj(r,p,0,-1,-1,-1);
+
+		//check right
+		bool test_R = chk_adj(r,p,0,1,-1,0);
+
+		if (test_U && test_L && test_R)
 		{
-			//check above
-			changed = true;
-		}
-		else if (chk_adj(r,p,0,-1,-1,-1))
-		{
-			//check left
-			changed = true;
-		}
-		else if	(chk_adj(r,p,0,1,-1,0))
-		{
-			//check right
 			changed = true;
 		}
 
@@ -178,8 +174,9 @@ public:
 	bool chk_adj(int r, int p, int r1, int p1, int r2, int p2)
 	{
 		//first check for not at an edge
-		if ((0 < p+p1 <= r) && (0 < p+p1 <= r) && (r <= n))
+		if ((0 < p+p1 <= r) && (0 < p+p2 <= r) && (r <= n) && (r > 1))
 		{
+			//if not at the edge, check those two cards
 			bool test1 = cards[crd.to_index(r+r1,p+p1)].det;
 			bool test2 = cards[crd.to_index(r+r2,p+p2)].det;
 

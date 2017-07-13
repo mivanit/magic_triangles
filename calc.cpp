@@ -20,6 +20,11 @@ pair<int,int> * trind;
 
 int main()
 {
+	//DONT REMOVE THIS
+	//GENERATES THE INDEX OF INDEX TO ROW/PLACE CONVERSIONS
+	const int max_tri_size = 10;
+	gen_tri_index(max_tri_size);
+
 	test_tri(1);
 	test_tri(2);
 	test_tri(3);
