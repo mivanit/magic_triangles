@@ -60,6 +60,10 @@ public:
 	{
 		cout << "checking card layer #" << x << " for tri of size " << n << endl;
 
+		cout << endl;
+		draw_tri();
+		cout << endl;
+
 		//subtotal for this instance
 		int sub_total = 0;
 
@@ -233,9 +237,60 @@ public:
 		return ((p > 0) && (p <= r) && (r <= n) && (r > 0));
 	}
 
+	//draw whole triangle
 	void draw_tri()
 	{
-		//TODO
+		//upside down pyramid drawing
+		//TODO: row/place labels?
+
+		for (int r = n; r > 0; r--)
+		{
+			draw_tri_row(r);
+		}
+	}
+
+	//draw the row r
+	void draw_tri_row(int r)
+	{
+		//buffer before text starts on every line
+		cout << "     ";
+
+		//buffer of (n-r) * 2 spaces before the start
+		for (int i = 0; i < (n-r); i++)
+		{
+			cout << " ";
+		}
+
+		//odd numbered rows are offset by one space
+		//if (r%2 != 0)
+		//{cout << " ";}
+
+		for (int p = 1; p <= r; p++)
+		{
+			int index = crd.to_index(r, p);
+			draw_tri_card(index);
+		}
+
+		//endline
+		cout << endl;
+	}
+
+	//draw the card at index into cout
+	void draw_tri_card(int index)
+	{
+		//characters are effectively 2 spaces, one for the char and one for a space
+		// '#' for det card
+		// 'O' for undet card
+
+		if (cards[index].det)
+		{
+			cout << "# ";
+		}
+		else
+		{
+			cout << "O ";
+		}
+
 	}
 
 
