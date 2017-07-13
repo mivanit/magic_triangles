@@ -70,7 +70,11 @@ public:
 				sub_total++;
 
 				//mark this card as checked in the index
-				
+				//but only if we are on the first layer of cards
+				if (x == 1)
+				{
+					chk_idx = i;
+				}
 
 				//if not last card
 				//copy tri, fill card, and recurse
