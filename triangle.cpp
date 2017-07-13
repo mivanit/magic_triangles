@@ -151,7 +151,7 @@ public:
 				if ( chk_corner_tri( index, ((3^i) + 1) ) )
 				{
 					//change the actual card
-					index.det = true;
+					(cards[index]).det = true;
 
 					//mark that it is changed
 					changed = true;
