@@ -1,0 +1,1 @@
+after card @ index 1 checked, dont ever check any combination with that card ever again
