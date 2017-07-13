@@ -18,6 +18,14 @@ public:
 		n = in_n;
 	}
 
+	//copy constructor
+	Card(Card * x)
+	{
+		index = x->index;
+		n = x->n;
+		det = x->det;
+	}
+
 	int get_row()
 	{
 		return trind[index].first;

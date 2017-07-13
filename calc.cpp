@@ -45,6 +45,7 @@ int test_tri(int n)
 
 	cout << "tri of size " << n << " complete!" << "\n\n";
 
+
 	return comb;
 }
 

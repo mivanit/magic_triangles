@@ -23,13 +23,16 @@ public:
 	Triangle(Triangle * x)
 	{
 		n = x->n;
-		k = x->k;
+		k = n * (n+1) / 2;
+		chk_idx = x->chk_idx;
 		cards = new Card[k+1];
+
+		cout << "triangle of size " << n << " created using copy ctor!\n";
 
 		//loop to copy card data
 		for (int i = 0; i <= k; i++)
 		{
-			cards[i] = (x->cards)[i];
+			cards[i] = Card((x->cards)[i]);
 		}
 	}
 
@@ -52,20 +55,22 @@ public:
 	//recursive(?) function for checking # of permutations possible in this triangle
 	//with x cards
 	//makes copies of the current triangle with 1 card added, then calls itself
-	//takes card being placed # as input
+	//takes card layer being placed as input
 	int check_permutations(int x)
 	{
-		cout << "checking card #" << x << " for tri of size " << n << endl;
+		cout << "checking card layer #" << x << " for tri of size " << n << endl;
 
 		//subtotal for this instance
 		int sub_total = 0;
 
-		//loop through all remaining empty cards
+		//loop through all remaining empty, unchecked cards
 		for (int i = 1; i <= k; i++)
 		{
 			//if card is not determined, and has not yet been checked:
 			if ( !(cards[i].det) && (i > chk_idx))
 			{
+				cout << "checking card index " << i << endl;
+
 				//add 1 for placement of this card
 				sub_total++;
 
@@ -89,11 +94,9 @@ public:
 					//fill
 					subtri.fill_tri_loop();
 
-					cout << sub_total << endl;
-					cout << "about to recurse for card #" << x+1 << " for tri of size " << n << endl;
 					//recurse with next card, add to subtotal
 					sub_total = sub_total + subtri.check_permutations(x + 1);
-					cout << sub_total << endl;
+					cout << "exit recursion\n";
 				}
 			}
 
