@@ -177,11 +177,19 @@ public:
 	// original r, p, 1st r mod, p mod, 2nd r mod, p mod
 	bool chk_adj(int r, int p, int r1, int p1, int r2, int p2)
 	{
-		bool test1 = cards[crd.to_index(r+r1,p+p1)].det;
-		bool test2 = cards[crd.to_index(r+r2,p+p2)].det;
+		//first check for not at an edge
+		if ((0 < p+p1 <= r) && (0 < p+p1 <= r) && (r <= n))
+		{
+			bool test1 = cards[crd.to_index(r+r1,p+p1)].det;
+			bool test2 = cards[crd.to_index(r+r2,p+p2)].det;
 
-		//if BOTH were determined, return true
-		return (test1 && test2);
+			//if BOTH were determined, return true
+			return (test1 && test2);
+		}
+
+		//youre still here? that means it was on an edge
+		//just return false
+		return false;
 	}
 
 	void draw_tri()
