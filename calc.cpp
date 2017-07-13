@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <iostream>
+#include "mylib.cpp"
 #include "triangle.cpp"
 
 using namespace std;
@@ -28,9 +29,8 @@ int main()
 	test_tri(1);
 	test_tri(2);
 	test_tri(3);
-	//test_tri(4);
+	test_tri(4);
 }
-
 
 int test_tri(int n)
 {
@@ -51,6 +51,7 @@ int test_tri(int n)
 //generate the index out to a size
 //first term is row, second is place
 //index starts at 0
+
 void gen_tri_index(int n)
 {
 	//calculate what index we need to go out to

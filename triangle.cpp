@@ -27,7 +27,7 @@ public:
 		cards = new Card[k+1];
 
 		//loop to copy card data
-		for (int i = 1; i < k+1; i++)
+		for (int i = 0; i <= k; i++)
 		{
 			cards[i] = (x->cards)[i];
 		}
@@ -43,7 +43,10 @@ public:
 	//check_permutations main call
 	int perm_main()
 	{
-		return check_permutations(1);
+		//TODO - account for the fact that placed cards should not be distinct
+		//divide by (n!) probably
+		//this means whole algorithm needs to be redone
+		return check_permutations(1)/factorial(n);
 	}
 
 	//recursive(?) function for checking # of permutations possible in this triangle
@@ -55,7 +58,7 @@ public:
 		cout << "checking card #" << x << " for tri of size " << n << endl;
 
 		//subtotal for this instance
-		int subtotal = 0;
+		int sub_total = 0;
 
 		//loop through all remaining empty cards
 		for (int i = 1; i <= k; i++)
@@ -64,11 +67,11 @@ public:
 			if ( !(cards[i].det) )
 			{
 				//add 1 for placement of this card
-				subtotal++;
+				sub_total++;
 
 				//if not last card
 				//copy tri, fill card, and recurse
-				if (x <= n)
+				if (x < n)
 				{
 					//create copy
 					Triangle subtri = Triangle(this);
@@ -79,16 +82,17 @@ public:
 					//fill
 					subtri.fill_tri_loop();
 
-					cout << "about to recurse for card #" << x << " for tri of size " << n << endl;
-
+					cout << sub_total << endl;
+					cout << "about to recurse for card #" << x+1 << " for tri of size " << n << endl;
 					//recurse with next card, add to subtotal
-					subtotal = subtotal + subtri.check_permutations(x + 1);
-					cout << subtotal << endl;
+					sub_total = sub_total + subtri.check_permutations(x + 1);
+					cout << sub_total << endl;
 				}
 			}
 
+
 			//return subtotal
-			return subtotal++;
+			return sub_total;
 		}
 	}
 
