@@ -13,11 +13,13 @@ public:
 
 
 	/*
+
 	 ██████ ████████  ██████  ██████
 	██         ██    ██    ██ ██   ██
 	██         ██    ██    ██ ██████
 	██         ██    ██    ██ ██   ██
 	 ██████    ██     ██████  ██   ██
+
 	 */
 
 
@@ -35,7 +37,6 @@ public:
 	{
 		n = x->n;
 		k = n * (n+1) / 2;
-		chk_idx = x->chk_idx;
 		cards = new Card[k+1];
 
 		//loop to copy card data
@@ -48,11 +49,13 @@ public:
 
 
 	/*
+
 	 ██████ ██   ██ ██   ██
 	██      ██   ██ ██  ██
 	██      ███████ █████
 	██      ██   ██ ██  ██
 	 ██████ ██   ██ ██   ██
+
 	*/
 
 
@@ -63,48 +66,54 @@ public:
 		//to account for the fact that placed cards should not be distinct
 		//store the largest card index that has been tested
 		//
-		return check_permutations(1);
+		return check_permutations(1, 0);
 	}
 
 	//recursive(?) function for checking # of permutations possible in this triangle
 	//with x cards
 	//makes copies of the current triangle with 1 card added, then calls itself
 	//takes card layer being placed as input
-	int check_permutations(int x)
+	int check_permutations(int x, int in_chk_index)
 	{
 		//fill (isnt necessary here, but just in case)
-		fill_tri_loop();
+		this->fill_tri_loop();
 
 		//subtotal for this instance
 		int sub_total = 0;
+		//largest card index checked for this instance
+		int chk_idx = in_chk_index;
 
 		//loop through all remaining empty, unchecked cards
-		for (int i = 1; i <= k; i++)
+		for (int i = chk_idx + 1; i <= k; i++)
 		{
 			//if card is not determined, and has not yet been checked:
-			if ( !(cards[i].get_det()) && (i > chk_idx) )
+			if ( !(cards[i].get_det()) )//&& (i > chk_idx) )
 			{
 				//copy tri, fill card, display
-				//TODO: if last layer, check tri is fully determined
 
 				//create copy
 				Triangle subtri = Triangle(this);
 
 				//fill (isnt necessary here, but just in case)
 				subtri.fill_tri_loop();
+				this->fill_tri_loop();
 
 				//set card at index to determined
 				//use place() to store that this card was manually placed
 				(subtri.cards[i]).place(x);
 
+				//mark this card as checked in the index
+				chk_idx = i;
+
 				//fill
 				subtri.fill_tri_loop();
+				this->fill_tri_loop();
 
 				//if not last card, recurse
 				if (x < n)
 				{
 					//recurse with next card, add to subtotal
-					sub_total = sub_total + subtri.check_permutations(x + 1);
+					sub_total = sub_total + subtri.check_permutations(x + 1, chk_idx);
 				}
 
 				//fill (isnt necessary here, but just in case)
@@ -114,6 +123,8 @@ public:
 				//if tri if fully det
 				if (x == n)
 				{
+					subtri.fill_tri_loop();
+
 					if (chk_all_filled())
 					{
 						sub_total++;
@@ -122,13 +133,6 @@ public:
 					cout << endl;
 					subtri.draw_tri();
 					cout << endl;
-				}
-
-				//mark this card as checked in the index
-				//but only if we are on the first layer of cards
-				if (x == 1)
-				{
-					chk_idx++;
 				}
 			}
 		}
@@ -152,11 +156,13 @@ public:
 	}
 
 	/*
+
 	███████ ██ ██      ██
 	██      ██ ██      ██
 	█████   ██ ██      ██
 	██      ██ ██      ██
 	██      ██ ███████ ███████
+
 	*/
 
 
@@ -216,11 +222,11 @@ public:
 			//continue until there are no 3^i + 1 tris remain inside
 			if ( ((3 ^ i) + 1) <= n+1 )
 			{
-				cout << "test12\n";
 				//call corner checking function
 				//if this card turns out to be the corner of a triangle, fill it
 				if ( chk_corner_tri( index, ((3 ^ i) + 1) ) )
 				{
+					cout << "test13\n";
 					//cout << "test11\n";
 					//change the actual card
 					(cards[index]).fill();
@@ -299,11 +305,13 @@ public:
 
 
 		/*
+
 		██████  ██████   █████  ██     ██
 		██   ██ ██   ██ ██   ██ ██     ██
 		██   ██ ██████  ███████ ██  █  ██
 		██   ██ ██   ██ ██   ██ ██ ███ ██
 		██████  ██   ██ ██   ██  ███ ███
+
 		*/
 
 
@@ -371,11 +379,13 @@ public:
 
 
 	/*
+
 	██    ██  █████  ██████  ███████
 	██    ██ ██   ██ ██   ██ ██
 	██    ██ ███████ ██████  ███████
 	 ██  ██  ██   ██ ██   ██      ██
 	  ████   ██   ██ ██   ██ ███████
+
 	*/
 
 
@@ -384,8 +394,6 @@ public:
 	int n;
 	//total number of indecies
 	int k;
-	//largest card index checked
-	int chk_idx = 0;
 
 	//starts at 1, pyramid upwards
 	//index starts from left side
