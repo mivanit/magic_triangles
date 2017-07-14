@@ -86,6 +86,10 @@ public:
 		//loop through all remaining empty, unchecked cards
 		for (int i = 1; i <= k; i++)
 		{
+			cout << "index: " << i << endl;
+			cout << "layer: " << x << endl;
+			cout << "size: " << n << endl;
+			cout << "chk_idx: " << chk_idx << endl;
 			//if card is not determined, and has not yet been checked:
 			if ( !(cards[i].det) && (i > chk_idx))
 			{
@@ -103,6 +107,7 @@ public:
 
 				//if not last card
 				//copy tri, fill card, and recurse
+
 				if (x < n)
 				{
 					//create copy
@@ -119,10 +124,10 @@ public:
 					cout << "exit recursion\n";
 				}
 			}
-
-			//return subtotal
-			return sub_total;
 		}
+
+		//return subtotal
+		return sub_total;
 	}
 
 	//recursive function for placing a card
