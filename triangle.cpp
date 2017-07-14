@@ -38,8 +38,6 @@ public:
 		chk_idx = x->chk_idx;
 		cards = new Card[k+1];
 
-		cout << "triangle of size " << n << " created using copy ctor!\n";
-
 		//loop to copy card data
 		for (int i = 0; i <= k; i++)
 		{
@@ -74,27 +72,15 @@ public:
 	//takes card layer being placed as input
 	int check_permutations(int x)
 	{
-		cout << "checking card layer #" << x << " for tri of size " << n << endl;
-
-		cout << endl;
-		draw_tri();
-		cout << endl;
-
 		//subtotal for this instance
 		int sub_total = 0;
 
 		//loop through all remaining empty, unchecked cards
 		for (int i = 1; i <= k; i++)
 		{
-			cout << "index: " << i << endl;
-			cout << "layer: " << x << endl;
-			cout << "size: " << n << endl;
-			cout << "chk_idx: " << chk_idx << endl;
 			//if card is not determined, and has not yet been checked:
 			if ( !(cards[i].det) && (i > chk_idx))
 			{
-				cout << "checking card index " << i << endl;
-
 				//add 1 for placement of this card
 				sub_total++;
 
@@ -102,7 +88,7 @@ public:
 				//but only if we are on the first layer of cards
 				if (x == 1)
 				{
-					chk_idx = i;
+					chk_idx++;
 				}
 
 				//if not last card
@@ -121,7 +107,6 @@ public:
 
 					//recurse with next card, add to subtotal
 					sub_total = sub_total + subtri.check_permutations(x + 1);
-					cout << "exit recursion\n";
 				}
 			}
 		}
