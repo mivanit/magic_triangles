@@ -1,5 +1,6 @@
 //Michael Ivanitskiy
 //started july 10 2017
+//v 0.1 (july 14 2017)
 
 #include <tuple>
 #include <iostream>
