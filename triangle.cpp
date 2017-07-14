@@ -129,14 +129,14 @@ public:
 				{
 					subtri.fill_tri_loop();
 
-					if (chk_all_filled())
-					{
-						sub_total++;
-					}
+					//if (chk_all_filled())
+					sub_total++;
 
-					cout << endl;
-					subtri.draw_tri();
-					cout << endl;
+
+					//cout << endl;
+					//subtri.draw_tri();
+					//cout << endl;
+
 				}
 			}
 		}
@@ -148,15 +148,16 @@ public:
 	//function for checking all cards are filled
 	bool chk_all_filled()
 	{
-		bool full = true;
-		for (int i = 1; i <= k; i++)
+		int i = 1;
+		while (i < k)
 		{
-			if (cards[i].get_det() == false)
-			full = false;
-			return false;
+			if ((cards[i]).place_order == 0)
+			{
+				return false;
+			}
+			i++;
 		}
-
-		return full;
+		return true;
 	}
 
 	/*
@@ -197,7 +198,7 @@ public:
 				//check it
 				if (fill_card(i))
 				{
-					cout << "card filled @ " << i << endl;
+					//cout << "card filled @ " << i << endl;
 
 					//if it changes, then save that information
 					changed = true;
@@ -230,8 +231,6 @@ public:
 				//if this card turns out to be the corner of a triangle, fill it
 				if ( chk_corner_tri( index, ((3 ^ i) + 1) ) )
 				{
-					cout << "test13\n";
-					//cout << "test11\n";
 					//change the actual card
 					(cards[index]).fill();
 

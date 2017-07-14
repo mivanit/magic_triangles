@@ -27,24 +27,24 @@ int main()
 	const int max_tri_size = 10;
 	gen_tri_index(max_tri_size);
 
-	test_tri(1);
-	test_tri(2);
-	test_tri(3);
-	//test_tri(4);
+	for (int i = 1; i > 0; i++)
+	{
+		test_tri(i);
+	}
 }
 
 int test_tri(int n)
 {
-	cout << "testing tri of size " << n << endl;
+	//cout << "testing tri of size " << n << endl;
 
 	//create triangle
 	Triangle tester = Triangle(n);
 
 	//calculate
 	int comb = tester.perm_main();
-	cout << "n:\t" << n << "\tc:\t" << comb << endl;
+	cout << "triangle size:\t" << n << "\tarrangements:\t" << comb << endl;
 
-	cout << "tri of size " << n << " complete!" << "\n\n";
+	//cout << "tri of size " << n << " complete!" << "\n\n";
 
 
 	return comb;
