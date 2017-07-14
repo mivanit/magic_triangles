@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <iostream>
+#include <cassert>
 #include "mylib.cpp"
 #include "triangle.cpp"
 
@@ -29,7 +30,7 @@ int main()
 	test_tri(1);
 	test_tri(2);
 	test_tri(3);
-	test_tri(4);
+	//test_tri(4);
 }
 
 int test_tri(int n)

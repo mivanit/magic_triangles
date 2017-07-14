@@ -72,6 +72,9 @@ public:
 	//takes card layer being placed as input
 	int check_permutations(int x)
 	{
+		//fill (isnt necessary here, but just in case)
+		fill_tri_loop();
+
 		//subtotal for this instance
 		int sub_total = 0;
 
@@ -79,11 +82,8 @@ public:
 		for (int i = 1; i <= k; i++)
 		{
 			//if card is not determined, and has not yet been checked:
-			if ( !(cards[i].det) && (i > chk_idx))
+			if ( !(cards[i].get_det()) && (i > chk_idx) )
 			{
-				//add 1 for placement of this card
-				sub_total++;
-
 				//mark this card as checked in the index
 				//but only if we are on the first layer of cards
 				if (x == 1)
@@ -91,22 +91,40 @@ public:
 					chk_idx++;
 				}
 
-				//if not last card
-				//copy tri, fill card, and recurse
+				//copy tri, fill card, display
+				//TODO: if last layer, check tri is fully determined
 
+				//create copy
+				Triangle subtri = Triangle(this);
+
+				//fill (isnt necessary here, but just in case)
+				subtri.fill_tri_loop();
+
+				//set card at index to determined
+				//use place() to store that this card was manually placed
+				(subtri.cards[i]).place(x);
+
+				//fill
+				subtri.fill_tri_loop();
+
+				//if not last card, recurse
 				if (x < n)
 				{
-					//create copy
-					Triangle subtri = Triangle(this);
-
-					//set card at index to determined
-					(subtri.cards[i]).det = true;
-
-					//fill
-					subtri.fill_tri_loop();
-
 					//recurse with next card, add to subtotal
 					sub_total = sub_total + subtri.check_permutations(x + 1);
+				}
+
+				//fill (isnt necessary here, but just in case)
+				subtri.fill_tri_loop();
+
+				//if last layer, add 1 for this card placement
+				if (x == n)
+				{
+					sub_total++;
+
+					cout << endl;
+					subtri.draw_tri();
+					cout << endl;
 				}
 			}
 		}
@@ -120,7 +138,10 @@ public:
 	//loop until all determined cards are marked as such
 	void fill_tri_loop()
 	{
-		while ( fill_tri() ) {}
+		while ( fill_tri() )
+		{
+			fill_tri();
+		}
 	}
 
 
@@ -134,7 +155,7 @@ public:
 		for (int i = 1; i <= k; i++)
 		{
 			//if card is not yet determined
-			if (!(cards[i].det))
+			if ( cards[i].get_det() == false )
 			{
 				//check it
 				if (fill_card(i))
@@ -164,13 +185,17 @@ public:
 		while (loop_continue)
 		{
 			//continue until there are no 3^x + 1 tris remain inside
-			if ( ((3^i) + 1) < n )
+			if ( ((3^i) + 1) <= n )
 			{
 				//call corner checking function
+				//if this card turns out to be the corner of a triangle, fill it
 				if ( chk_corner_tri( index, ((3^i) + 1) ) )
 				{
+					cout << "card filled @ " << i << endl;
+
+					//cout << "test11\n";
 					//change the actual card
-					(cards[index]).det = true;
+					(cards[index]).fill();
 
 					//mark that it is changed
 					changed = true;
@@ -224,8 +249,8 @@ public:
 		if (chk_in(r+r1, p+p1) && chk_in(r+r1, p+p1))
 		{
 			//if not at the edge, check those two cards
-			bool test1 = cards[crd.to_index(r+r1,p+p1)].det;
-			bool test2 = cards[crd.to_index(r+r2,p+p2)].det;
+			bool test1 = cards[crd.to_index(r+r1,p+p1)].get_det();
+			bool test2 = cards[crd.to_index(r+r2,p+p2)].get_det();
 
 			//if BOTH were determined, return true
 			return (test1 && test2);
@@ -294,18 +319,25 @@ public:
 	void draw_tri_card(int index)
 	{
 		//characters are effectively 2 spaces, one for the char and one for a space
-		// '#' for det card
+		//  x for det by placement card
+		// '#' for det by fill card
 		// 'O' for undet card
 
-		if (cards[index].det)
+		if (cards[index].get_det())
 		{
-			cout << "# ";
+			if (cards[index].place_order > 0)
+			{
+				cout << cards[index].place_order << " ";
+			}
+			else
+			{
+				cout << "# ";
+			}
 		}
 		else
 		{
 			cout << "O ";
 		}
-
 	}
 
 

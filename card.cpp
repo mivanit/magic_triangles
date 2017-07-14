@@ -36,6 +36,8 @@ public:
 		index = x->index;
 		n = x->n;
 		det = x->det;
+		//value = x->value;
+		place_order = x->place_order;
 	}
 
 
@@ -49,6 +51,22 @@ public:
 	*/
 
 
+	bool place(int x)
+	{
+		det = true;
+		place_order = x;
+	}
+
+	bool fill()
+	{
+		det = true;
+		place_order = -1;
+	}
+
+	bool get_det()
+	{
+		return det;
+	}
 
 
 	int get_row()
@@ -80,23 +98,29 @@ public:
 	  ████   ██   ██ ██   ██ ███████
 	*/
 
-
-
-
-	bool det = false;
-	//value 0 for no det card, 1-3 for states
-	//int value = 0;
-	//index (location in triangle, just in case)
-	int index;
-	//size of triangle
-	int n;
-
 	//assignment operator
 	void operator=(Card * rhs)
 	{
 		index = rhs->index;
 		n = rhs->n;
 		det = rhs->det;
+		//value = rhs->value;
+		place_order = rhs->place_order;
 	}
+
+	// 0 if undet,
+	// -1 if by fill,
+	// x otherwise
+	int place_order = 0;
+
+	//int value = 0;
+	//index (location in triangle, just in case)
+	int index;
+	//size of triangle
+	int n;
+
+private:
+	//whether card is determined
+	bool det = false;
 
 };//end of card class
