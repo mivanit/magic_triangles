@@ -84,13 +84,6 @@ public:
 			//if card is not determined, and has not yet been checked:
 			if ( !(cards[i].get_det()) && (i > chk_idx) )
 			{
-				//mark this card as checked in the index
-				//but only if we are on the first layer of cards
-				if (x == 1)
-				{
-					chk_idx++;
-				}
-
 				//copy tri, fill card, display
 				//TODO: if last layer, check tri is fully determined
 
@@ -118,13 +111,24 @@ public:
 				subtri.fill_tri_loop();
 
 				//if last layer, add 1 for this card placement
+				//if tri if fully det
 				if (x == n)
 				{
-					sub_total++;
+					if (chk_all_filled())
+					{
+						sub_total++;
+					}
 
 					cout << endl;
 					subtri.draw_tri();
 					cout << endl;
+				}
+
+				//mark this card as checked in the index
+				//but only if we are on the first layer of cards
+				if (x == 1)
+				{
+					chk_idx++;
 				}
 			}
 		}
@@ -133,7 +137,19 @@ public:
 		return sub_total;
 	}
 
-	//recursive function for placing a card
+	//function for checking all cards are filled
+	bool chk_all_filled()
+	{
+		bool full = true;
+		for (int i = 1; i <= k; i++)
+		{
+			if (cards[i].get_det() == false)
+			full = false;
+			return false;
+		}
+
+		return full;
+	}
 
 	//loop until all determined cards are marked as such
 	void fill_tri_loop()
@@ -157,9 +173,12 @@ public:
 			//if card is not yet determined
 			if ( cards[i].get_det() == false )
 			{
+				//cout << "chk card @ " << i << endl;
 				//check it
 				if (fill_card(i))
 				{
+					cout << "card filled @ " << i << endl;
+
 					//if it changes, then save that information
 					changed = true;
 				}
@@ -184,15 +203,14 @@ public:
 
 		while (loop_continue)
 		{
-			//continue until there are no 3^x + 1 tris remain inside
-			if ( ((3^i) + 1) <= n )
+			//continue until there are no 3^i + 1 tris remain inside
+			if ( ((3 ^ i) + 1) <= n+1 )
 			{
+				cout << "test12\n";
 				//call corner checking function
 				//if this card turns out to be the corner of a triangle, fill it
-				if ( chk_corner_tri( index, ((3^i) + 1) ) )
+				if ( chk_corner_tri( index, ((3 ^ i) + 1) ) )
 				{
-					cout << "card filled @ " << i << endl;
-
 					//cout << "test11\n";
 					//change the actual card
 					(cards[index]).fill();
@@ -241,24 +259,26 @@ public:
 	//USAGE:
 	// takes original p/r, then modifiers
 	// original r, p, 1st r mod, p mod, 2nd r mod, p mod
-	bool chk_adj(int r, int p, int r1, int p1, int r2, int p2)
+	bool chk_adj(int r, int p, int r_1, int p_1, int r_2, int p_2)
 	{
 		//TODO: throw error if base r/p outside
 
 		//first check everything is inside
-		if (chk_in(r+r1, p+p1) && chk_in(r+r1, p+p1))
+		if (chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
 		{
 			//if not at the edge, check those two cards
-			bool test1 = cards[crd.to_index(r+r1,p+p1)].get_det();
-			bool test2 = cards[crd.to_index(r+r2,p+p2)].get_det();
+			bool test1 = cards[crd.to_index(r + r_1, p + p_1)].get_det();
+			bool test2 = cards[crd.to_index(r + r_2, p + p_2)].get_det();
 
 			//if BOTH were determined, return true
 			return (test1 && test2);
 		}
-
-		//still here? that means it was on an edge
-		//just return false
-		return false;
+		else
+		{
+			//still here? that means it was on an edge
+			//just return false
+			return false;
+		}
 	}
 
 	//function for checking that a p/r are inside the triangle
