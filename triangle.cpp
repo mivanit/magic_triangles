@@ -91,6 +91,10 @@ public:
 			{
 				//copy tri, fill card, display
 
+				//fill (isnt necessary here, but just in case)
+				fill_tri_loop();
+				this->fill_tri_loop();
+
 				//create copy
 				Triangle subtri = Triangle(this);
 
@@ -211,7 +215,7 @@ public:
 	bool fill_card(int index)
 	{
 		bool changed = false;
-		bool loop_continue;
+		bool loop_continue = true;
 		int i = 0;
 
 		//TODO: add error checking for if more than one set tries to define this card
