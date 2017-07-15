@@ -1,0 +1,13 @@
+triangle size:  2       arrangements:   3
+
+
+     2 O
+      1
+
+
+     O 2
+      1
+
+
+     1 2
+      O

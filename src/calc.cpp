@@ -28,7 +28,7 @@ int main()
 	const int max_tri_size = 10;
 	gen_tri_index(max_tri_size);
 
-	for (int i = 1; i > 0; i++)
+	for (int i = 1; i <= 4; i++)
 	{
 		test_tri(i);
 	}

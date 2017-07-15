@@ -1,8 +1,6 @@
 OLD:
 -after card @ index 1 checked, dont ever check any combination with that card ever again
 
-
-TODO:
--implement checked card index in every layer, not just first
+- implement checked card index in every layer, not just first
 
 -fix not filling cards on last layer

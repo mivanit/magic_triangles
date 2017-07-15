@@ -1,0 +1,6 @@
+all valid combinations are printed - this can be changed in src/triangle.cpp
+# - card that is filled/determined by the placed cards
+O - (capital 'o', not 0) no card placed (none of these should print)
+1,2,3,etc - placed card, with number representing order of placement (for debugging purposes)
+triangle configurations are printed with an extra 2 lines between them
+first line gives triangle size, and total # of arrangements

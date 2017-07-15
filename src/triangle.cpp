@@ -133,9 +133,9 @@ public:
 					sub_total++;
 
 
-					//cout << endl;
-					//subtri.draw_tri();
-					//cout << endl;
+					cout << endl;
+					subtri.draw_tri();
+					cout << endl;
 
 				}
 			}
@@ -377,7 +377,6 @@ public:
 			cout << "O ";
 		}
 	}
-
 
 
 
