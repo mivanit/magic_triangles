@@ -15,3 +15,6 @@ If they are different, it is the "missing" state
 The question we're trying to answer is how many ways can you arrange n cards in a triangle of size n
 such that no conflicts are possible and the triangle is defined entirely
 also hopefully prove that any valid, non-conflicting arrangements of n cards always define a triangle
+
+some of the calculated configurations so far may be found in the /data directory
+calc.exe in the main directory will often be outdated, and does not have a real user interface yet, code must be edited directly
