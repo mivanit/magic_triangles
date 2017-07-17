@@ -11,7 +11,7 @@ public:
 
 
 	/*
-	
+
 	 ██████ ████████  ██████  ██████
 	██         ██    ██    ██ ██   ██
 	██         ██    ██    ██ ██████
@@ -106,13 +106,9 @@ public:
 	*/
 
 	//assignment operator
-	void operator=(Card * rhs)
+	Card operator=(Card * rhs)
 	{
-		index = rhs->index;
-		n = rhs->n;
-		det = rhs->det;
-		//value = rhs->value;
-		place_order = rhs->place_order;
+		return Card(rhs);
 	}
 
 	// 0 if undet,

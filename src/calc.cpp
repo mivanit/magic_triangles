@@ -28,7 +28,7 @@ int main()
 	const int max_tri_size = 10;
 	gen_tri_index(max_tri_size);
 
-	for (int i = 1; i <= 4; i++)
+	for (int i = 1; i <= 10; i++)
 	{
 		test_tri(i);
 	}
@@ -42,7 +42,7 @@ int test_tri(int n)
 	Triangle tester = Triangle(n);
 
 	//calculate
-	int comb = tester.perm_main();
+	int comb = tester.arrange_main();
 	cout << "triangle size:\t" << n << "\tarrangements:\t" << comb << endl;
 
 	//cout << "tri of size " << n << " complete!" << "\n\n";
