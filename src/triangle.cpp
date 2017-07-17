@@ -294,34 +294,51 @@ public:
 	// special case check for the 3 triangle corners case
 	// checks the 6 surrounding cards for whether they are part of a 3 tri
 	// calls fill_3tri_corners to do the actual work
-	fill_special_3tri(int index)
+	bool fill_special_3tri(int index)
 	{
 		// get r/p of index
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
-		// left
+		// modifiers
+		int r_m = r;
+		int p_m = p;
 
-		// top left
+		// loop for getting all directions
+		for (int i = 0, i < 6; i++)
+		{
+			// send it off to fill_3tri_corners() to test it
+			fill_3tri_corners(r + r_m, p + p_m);
 
-
-
-
+			// rotate the coord modifiers before moving on
+			rot(&r_m, &r_m)
+		}
 	}
 
 
-	//
-	fill_3tri_corners(int index)
+	// takes r/p of a card
+	// checks the corners in the specified direction
+	// if the triangle is filled (including the card at r/p),
+	// then fill the 3 missing cards because the triangle should be defined
+	bool fill_3tri_corners(int r, int p, int d)
 	{
+		int index = crd.to_index(r,p);
+		// check to see the given card is determined
+		if (cards[index].get_det())
+		{
+			// if it is, check the other 2 in the given direction
+			if (chk_corner_tri_dir(index, d))
+			{
 
 
-
+			}
+		}
 	}
 
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
-	// TODO: fctn for rotating?
-	fill_3tri_dir(int index, int d)
+	// TODO: fctn for rotating? (-partially complete)
+	bool fill_3tri_dir(int index, int d)
 	{
 		// get r/p of index
 		int r = cards[index].get_row();
