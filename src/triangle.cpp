@@ -255,65 +255,121 @@ public:
 		//triangle chk size
 		int size = ((3 ^ i) + 1);
 
-		//TODO: add error checking for if more than one set tries to define this card
+		// TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
 
-		//keep going until all valid tri sizes checked
-		//TODO: figure out why the code breaks for n < 4 if we make the
+		// TODO: add check for 3 tri special case corner fill
+		fill_special_3tri(index);
+
+		// keep going until all valid tri sizes checked
+		// TODO: figure out why the code breaks for n < 4 if we make the
 		//		looping requirement just size <= n
 		while ( size <= n + 10 )
 		{
-			//calculate tri size
+			// calculate tri size
 			size = ((3 ^ i) + 1);
 
-			//if the triangle corners fit inside the tri
-			//call corner checking function on the index we have been given
-			//if this card turns out to be the corner of a triangle, fill it
+			// if the triangle corners fit inside the tri
+			// call corner checking function on the index we have been given
+			// if this card turns out to be the corner of a triangle, fill it
 			if ( chk_corner_tri( index, size ) )
 			{
-				//change the actual card
-				//use fill() to indicate it was filled, not placed
+				// change the actual card
+				// use fill() to indicate it was filled, not placed
 				(cards[index]).fill();
-				//store that the card is changed
+				// store that the card is changed
 				changed = true;
 			}
 
-			//iterate counter
+			// iterate counter
 			i++;
 		}
 
-		//return whether anything has changed
+		// return whether anything has changed
 		return changed;
 	}
 
-	//checks for the x-th (3^x)+1 tri at an index
+
+
+	// special case check for the 3 triangle corners case
+	// checks the 6 surrounding cards for whether they are part of a 3 tri
+	// fills in this square and the other 3 if true
+	fill_special_3tri(int index)
+	{
+		// get r/p of index
+		int r = cards[index].get_row();
+		int p = cards[index].get_place();
+
+		// left
+
+		// top left
+
+
+
+
+	}
+
+	fill_3tri_corners(int index)
+	{
+
+
+	}
+
+	// checks for the x-th (3^x)+1 tri at an index
 	bool chk_corner_tri(int index, int x)
+	{
+		// check 2 corners above
+		bool test_U = chk_corner_tri_dir(index, x,  0);
+
+		// check bottom left
+		bool test_L = chk_corner_tri_dir(index, x, -1);
+
+		// check bottom right
+		bool test_R = chk_corner_tri_dir(index, x,  1);
+
+		// if any are true, return true
+		return (test_U || test_L || test_R);
+	}
+
+	// checks for the given coord being a corner of a given tri
+	// ONLY in the given direction
+	// takes: index, size of tri, d=direction
+	// 0 is up, -1 is left, 1 is right
+	bool chk_corner_tri_dir(int index, int size, int d)
 	{
 		// r/p = row/place
 		//get r/p of index
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
-		//triangle of size x implies corners are x-1 away
-		int k = x - 1;
+		//triangle of size x implies corners are size - 1 away
+		int x = size - 1;
 
-		//check 2 corners above
-		bool test_U = chk_adj(r,p,k,0,k,k);
+		//determine values
+		int r_1 = x * (1 - abs(d));
+		int p_1 = x * d;
+		int r_2 = x * (1 - 2 * abs(d));
+		// TODO: improve p_2 calculation?
+		int p_2;
+		if (d == 0)
+		{
+			p_2 = x;
+		}
+		else if (d == (-1))
+		{
+			p_2 = (-x);
+		}
+		else
+		{
+			p_2 = 0;
+		}
 
-		//check bottom left
-		bool test_L = chk_adj(r,p,0,-k,-k,-k);
-
-		//check bottom right
-		bool test_R = chk_adj(r,p,0,k,-k,0);
-
-		//if any are true, return true
-		return (test_U || test_L || test_R);
+		return chk_adj(r, p, r_1, p_1, r_2, p_2);
 	}
 
-
-	//for checking 2 cards by relative positioning
-	//returns true if both determined
-	//USAGE:
+	// for checking 2 cards by relative positioning
+	// returns true if both determined
+	// USAGE:
 	// takes original p/r, then modifiers
 	// original r, p, 1st r mod, p mod, 2nd r mod, p mod
 	bool chk_adj(int r, int p, int r_1, int p_1, int r_2, int p_2)
