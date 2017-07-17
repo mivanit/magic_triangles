@@ -1,0 +1,9 @@
+v 0.1:
+
+triangle size:  1       arrangements:   1
+triangle size:  2       arrangements:   3
+triangle size:  3       arrangements:   16
+triangle size:  4       arrangements:   97
+triangle size:  5       arrangements:   687
+triangle size:  6       arrangements:   5569
+triangle size:  7       arrangements:   49288
