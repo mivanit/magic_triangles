@@ -32,6 +32,11 @@ public:
 		k = n * (n+1) / 2;
 		//initialize array of empty cards
 		cards = new Card[k+1];
+		//fill
+		for (int i = 0; i <= k; i++)
+		{
+			cards[i] = Card(i,n);
+		}
 	}
 
 	//copy constructor
@@ -261,6 +266,8 @@ public:
 	{
 		// r/p = row/place
 		//get r/p of index
+		//int r = trind[index].first;
+		//int p = trind[index].second;
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 

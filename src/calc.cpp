@@ -25,7 +25,7 @@ int main()
 {
 	//DONT REMOVE THIS
 	//GENERATES THE INDEX OF INDEX TO ROW/PLACE CONVERSIONS
-	const int max_tri_size = 10;
+	const int max_tri_size = 15;
 	gen_tri_index(max_tri_size);
 
 	for (int i = 1; i <= 10; i++)
