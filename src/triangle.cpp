@@ -293,7 +293,7 @@ public:
 
 	// special case check for the 3 triangle corners case
 	// checks the 6 surrounding cards for whether they are part of a 3 tri
-	// fills in this square and the other 3 if true
+	// calls fill_3tri_corners to do the actual work
 	fill_special_3tri(int index)
 	{
 		// get r/p of index
@@ -309,11 +309,31 @@ public:
 
 	}
 
+
+	//
 	fill_3tri_corners(int index)
 	{
 
 
+
 	}
+
+	// fills the missing bits of a corner-only 3tri
+	// starting at the given index, and going in the given location
+	// TODO: fctn for rotating?
+	fill_3tri_dir(int index, int d)
+	{
+		// get r/p of index
+		int r = cards[index].get_row();
+		int p = cards[index].get_place();
+
+		// clockwise
+
+		// counterclockwise
+
+		// furthest
+	}
+
 
 	// checks for the x-th (3^x)+1 tri at an index
 	bool chk_corner_tri(int index, int x)
@@ -366,6 +386,8 @@ public:
 
 		return chk_adj(r, p, r_1, p_1, r_2, p_2);
 	}
+
+
 
 	// for checking 2 cards by relative positioning
 	// returns true if both determined
