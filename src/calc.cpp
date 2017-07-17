@@ -30,9 +30,9 @@ int main()
 
 
 	//test triangles
-	for (int i = 1; i <= 4; i++)
+	for (int i = 1; i <= 5; i++)
 	{
-		test_tri(i,true);
+		test_tri(i,false);
 	}
 }
 

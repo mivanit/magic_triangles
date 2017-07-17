@@ -91,6 +91,9 @@ public:
 	//store the largest card index that has been tested
 	int check_arrange(int x, int in_chk_index)
 	{
+		//fill this triangle, just in case
+		this->fill_tri_loop();
+
 		//subtotal for this instance
 		int sub_total = 0;
 		//largest card index checked for this instance
@@ -99,18 +102,26 @@ public:
 		//loop through all remaining empty, unchecked cards
 		for (int i = chk_idx + 1; i <= k; i++)
 		{
+			//fill this triangle, just in case
+			this->fill_tri_loop();
+
 			//if card is not determined, and this index has not yet been checked:
 			if ( !(cards[i].get_det()) && (i > chk_idx) )
 			{
 				//copy tri, fill card, recurse if needed, display (if draw==true)
 				//if on last layer, check that it fills the triangle and return 1
 
+				//fill this triangle, just in case
 				this->fill_tri_loop();
 
 				//create copy of the triangle in its current state
 				//this isnt necessary for calculations,
 				//but makes the code make more sense and enables correct drawing of filled tris
 				Triangle subtri = Triangle(this);
+
+				//fill the triangle's cards
+				subtri.fill_tri_loop();
+				this->fill_tri_loop();
 
 				//set card at index to "determined"
 				//use place() to store that this card was manually placed
@@ -126,6 +137,10 @@ public:
 				//if not last card, recurse
 				if (x < n)
 				{
+					//fill the triangle's cards
+					subtri.fill_tri_loop();
+					this->fill_tri_loop();
+
 					//recurse
 					//pass next card layer, max checked index
 					//add to subtotal
@@ -133,14 +148,19 @@ public:
 					sub_total = sub_total + subtri.check_arrange(x + 1, chk_idx);
 				}
 
-				//fill (isnt necessary here, but just in case)
+				//fill the triangle's cards
 				subtri.fill_tri_loop();
+				this->fill_tri_loop();
 
 				//if last layer, add 1 for this card placement
 				//if tri if fully det
 				if (x == n)
 				{
+					//fill the triangle's cards
 					subtri.fill_tri_loop();
+					this->fill_tri_loop();
+
+
 					//TODO: impl chk for triangle filled
 					//its bugged right now and always returns false
 					//if (chk_all_filled())
@@ -232,6 +252,8 @@ public:
 		bool loop_continue = true;
 		//counter var
 		int i = 0;
+		//triangle chk size
+		int size = ((3 ^ i) + 1);
 
 		//TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
@@ -240,12 +262,15 @@ public:
 		while (loop_continue)
 		{
 			//continue until there are no 3^i + 1 tris can remain inside
-			if ( ((3 ^ i) + 1) <= n )
+			if ( size <= n+1 )
 			{
+				//calculate tri size
+				size = ((3 ^ i) + 1);
+
 				//if the triangle corners fit inside the tri
 				//call corner checking function on the index we have been given
 				//if this card turns out to be the corner of a triangle, fill it
-				if ( chk_corner_tri( index, ((3 ^ i) + 1) ) )
+				if ( chk_corner_tri( index, size ) )
 				{
 					//change the actual card
 					(cards[index]).fill();

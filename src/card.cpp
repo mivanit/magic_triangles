@@ -106,10 +106,8 @@ public:
 	*/
 
 	//assignment operator
-	Card operator=(Card * rhs)
-	{
-		return Card(rhs);
-	}
+	//Card operator=(Card * rhs)
+	//{	return Card(rhs);	}
 
 	// 0 if undet,
 	// -1 if by fill,
