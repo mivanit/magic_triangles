@@ -261,7 +261,7 @@ public:
 		//keep going until all valid tri sizes checked
 		//TODO: figure out why the code breaks for n < 4 if we make the
 		//		looping requirement just size <= n
-		while ( size <= n + 3 )
+		while ( size <= n + 10 )
 		{
 			//calculate tri size
 			size = ((3 ^ i) + 1);
