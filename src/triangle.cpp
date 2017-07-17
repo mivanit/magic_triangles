@@ -24,20 +24,35 @@ public:
 
 
 	//default constructor
-	Triangle(int size)
+	Triangle(int size, bool in_draw = false)
 	{
+		//size of tri
 		n = size;
+		//number of indecies
 		k = n * (n+1) / 2;
+		//initialize array of empty cards
 		cards = new Card[k+1];
-
+		//fill
+		for (int i = 0; i <= k; i++)
+		{
+			cards[i] = Card(i,n);
+		}
+		//drawing
+		draw = in_draw;
 	}
 
 	//copy constructor
 	Triangle(Triangle * x)
 	{
+		//copy triangle size
 		n = x->n;
+		//TODO: assert k = x.k
+		//calculate number of indecies
 		k = n * (n+1) / 2;
+		//initialie array of empty cards
 		cards = new Card[k+1];
+		//copy whether to draw
+		draw = x->draw;
 
 		//loop to copy card data
 		for (int i = 0; i <= k; i++)
@@ -61,21 +76,22 @@ public:
 
 
 	//check_permutations main call
-	int perm_main()
+	int arrange_main()
 	{
-		//to account for the fact that placed cards should not be distinct
-		//store the largest card index that has been tested
-		//
-		return check_permutations(1, 0);
+		//no cards have been checked and none have been placed,
+		//so tell it to place card 1 and check all cards
+		return check_arrange(1, 0);
 	}
 
-	//recursive(?) function for checking # of permutations possible in this triangle
+	//recursive function for checking # of arrangements possible in this triangle
 	//with x cards
 	//makes copies of the current triangle with 1 card added, then calls itself
 	//takes card layer being placed as input
-	int check_permutations(int x, int in_chk_index)
+	//to account for the fact that placed cards should not be distinct
+	//store the largest card index that has been tested
+	int check_arrange(int x, int in_chk_index)
 	{
-		//fill (isnt necessary here, but just in case)
+		//fill this triangle, just in case
 		this->fill_tri_loop();
 
 		//subtotal for this instance
@@ -86,57 +102,75 @@ public:
 		//loop through all remaining empty, unchecked cards
 		for (int i = chk_idx + 1; i <= k; i++)
 		{
-			//if card is not determined, and has not yet been checked:
-			if ( !(cards[i].get_det()) )//&& (i > chk_idx) )
-			{
-				//copy tri, fill card, display
+			//fill this triangle, just in case
+			this->fill_tri_loop();
 
-				//fill (isnt necessary here, but just in case)
-				fill_tri_loop();
+			//if card is not determined, and this index has not yet been checked:
+			if ( !(cards[i].get_det()) && (i > chk_idx) )
+			{
+				//copy tri, fill card, recurse if needed, display (if draw==true)
+				//if on last layer, check that it fills the triangle and return 1
+
+				//fill this triangle, just in case
 				this->fill_tri_loop();
 
-				//create copy
+				//create copy of the triangle in its current state
+				//this isnt necessary for calculations,
+				//but makes the code make more sense and enables correct drawing of filled tris
 				Triangle subtri = Triangle(this);
 
-				//fill (isnt necessary here, but just in case)
+				//fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
-				//set card at index to determined
+				//set card at index to "determined"
 				//use place() to store that this card was manually placed
 				(subtri.cards[i]).place(x);
 
-				//mark this card as checked in the index
+				//mark this card index as checked for this iteration
 				chk_idx = i;
 
-				//fill
+				//fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
 				//if not last card, recurse
 				if (x < n)
 				{
-					//recurse with next card, add to subtotal
-					sub_total = sub_total + subtri.check_permutations(x + 1, chk_idx);
+					//fill the triangle's cards
+					subtri.fill_tri_loop();
+					this->fill_tri_loop();
+
+					//recurse
+					//pass next card layer, max checked index
+					//add to subtotal
+					//TODO: subtotal should be 0 apart from this
+					sub_total = sub_total + subtri.check_arrange(x + 1, chk_idx);
 				}
 
-				//fill (isnt necessary here, but just in case)
+				//fill the triangle's cards
 				subtri.fill_tri_loop();
+				this->fill_tri_loop();
 
 				//if last layer, add 1 for this card placement
 				//if tri if fully det
 				if (x == n)
 				{
+					//fill the triangle's cards
 					subtri.fill_tri_loop();
+					this->fill_tri_loop();
 
+
+					//TODO: impl chk for triangle filled
+					//its bugged right now and always returns false
 					//if (chk_all_filled())
 					sub_total++;
 
-
-					cout << endl;
-					subtri.draw_tri();
-					cout << endl;
-
+					if (draw)
+					{
+						subtri.draw_tri();
+						cout << endl;
+					}
 				}
 			}
 		}
@@ -149,7 +183,7 @@ public:
 	bool chk_all_filled()
 	{
 		int i = 1;
-		while (i < k)
+		while (i <= k)
 		{
 			if ((cards[i]).place_order == 0)
 			{
@@ -175,10 +209,7 @@ public:
 	//loop until all determined cards are marked as such
 	void fill_tri_loop()
 	{
-		while ( fill_tri() )
-		{
-			fill_tri();
-		}
+		while ( fill_tri() ) {}
 	}
 
 
@@ -215,60 +246,67 @@ public:
 	//main function for filling a card
 	bool fill_card(int index)
 	{
+		//keep track of whether anything was changed
 		bool changed = false;
+		//keep going until all valid tri sizes checked
 		bool loop_continue = true;
+		//counter var
 		int i = 0;
+		//triangle chk size
+		int size = ((3 ^ i) + 1);
 
 		//TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
 
-		while (loop_continue)
+		//keep going until all valid tri sizes checked
+		//TODO: figure out why the code breaks for n < 4 if we make the
+		//		looping requirement just size <= n
+		while ( size <= n + 10 )
 		{
-			//continue until there are no 3^i + 1 tris remain inside
-			if ( ((3 ^ i) + 1) <= n+1 )
-			{
-				//call corner checking function
-				//if this card turns out to be the corner of a triangle, fill it
-				if ( chk_corner_tri( index, ((3 ^ i) + 1) ) )
-				{
-					//change the actual card
-					(cards[index]).fill();
+			//calculate tri size
+			size = ((3 ^ i) + 1);
 
-					//mark that it is changed
-					changed = true;
-				}
-
-				//iterate counter
-				i++;
-			}
-			else
+			//if the triangle corners fit inside the tri
+			//call corner checking function on the index we have been given
+			//if this card turns out to be the corner of a triangle, fill it
+			if ( chk_corner_tri( index, size ) )
 			{
-				loop_continue = false;
+				//change the actual card
+				//use fill() to indicate it was filled, not placed
+				(cards[index]).fill();
+				//store that the card is changed
+				changed = true;
 			}
+
+			//iterate counter
+			i++;
 		}
 
+		//return whether anything has changed
 		return changed;
 	}
 
 	//checks for the x-th (3^x)+1 tri at an index
 	bool chk_corner_tri(int index, int x)
 	{
+		// r/p = row/place
 		//get r/p of index
-		int r = trind[index].first;
-		int p = trind[index].second;
+		int r = cards[index].get_row();
+		int p = cards[index].get_place();
 
-		//triangle of size x => corners are x-1 away
+		//triangle of size x implies corners are x-1 away
 		int k = x - 1;
 
-		//check above
+		//check 2 corners above
 		bool test_U = chk_adj(r,p,k,0,k,k);
 
-		//check left
+		//check bottom left
 		bool test_L = chk_adj(r,p,0,-k,-k,-k);
 
-		//check right
+		//check bottom right
 		bool test_R = chk_adj(r,p,0,k,-k,0);
 
+		//if any are true, return true
 		return (test_U || test_L || test_R);
 	}
 
@@ -283,7 +321,7 @@ public:
 		//TODO: throw error if base r/p outside
 
 		//first check everything is inside
-		if (chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
+		if (chk_in(r,p) && chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
 		{
 			//if not at the edge, check those two cards
 			bool test1 = cards[crd.to_index(r + r_1, p + p_1)].get_det();
@@ -303,7 +341,7 @@ public:
 	//function for checking that a p/r are inside the triangle
 	bool chk_in(int r, int p)
 	{
-		return ((p > 0) && (p <= r) && (r <= n) && (r > 0));
+		return ( (p > 0) && (p <= r) && (r <= n) && (r > 0) );
 	}
 
 
@@ -395,6 +433,7 @@ public:
 	//side length of triangle
 	int n;
 	//total number of indecies
+	// k = n*(n+1)/2
 	int k;
 
 	//starts at 1, pyramid upwards
@@ -403,5 +442,8 @@ public:
 
 	//card for using to_index
 	Card crd;
+
+	//boolean for whether to draw triangles
+	bool draw = false;
 
 };//end of triangle class

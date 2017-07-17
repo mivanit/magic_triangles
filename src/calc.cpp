@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int test_tri(int n);
+int test_tri(int n, bool draw);
 void gen_tri_index(int n);
 void print_trind_test();
 
@@ -25,24 +25,26 @@ int main()
 {
 	//DONT REMOVE THIS
 	//GENERATES THE INDEX OF INDEX TO ROW/PLACE CONVERSIONS
-	const int max_tri_size = 10;
+	const int max_tri_size = 15;
 	gen_tri_index(max_tri_size);
 
-	for (int i = 1; i <= 4; i++)
+
+	//test triangles
+	for (int i = 1; i <= 10; i++)
 	{
-		test_tri(i);
+		test_tri(i,false);
 	}
 }
 
-int test_tri(int n)
+int test_tri(int n, bool draw = false)
 {
 	//cout << "testing tri of size " << n << endl;
 
 	//create triangle
-	Triangle tester = Triangle(n);
+	Triangle tester = Triangle(n, draw);
 
 	//calculate
-	int comb = tester.perm_main();
+	int comb = tester.arrange_main();
 	cout << "triangle size:\t" << n << "\tarrangements:\t" << comb << endl;
 
 	//cout << "tri of size " << n << " complete!" << "\n\n";
