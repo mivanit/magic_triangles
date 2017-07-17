@@ -327,6 +327,10 @@ public:
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
+		// temp vars
+		int r_1 = r;
+		int p_1 = p;
+
 		// clockwise
 
 		// counterclockwise
@@ -421,6 +425,92 @@ public:
 	{
 		return ( (p > 0) && (p <= r) && (r <= n) && (r > 0) );
 	}
+
+	// rotate a relative coordinate modifier 60 degrees clockwise
+	// ONLY WORKS FOR ADJACENT COORDS
+	// passes by reference
+	void rot(&r,&p)
+	{
+		if (*r == *p)
+		{
+			// when equal, only iterate row
+
+			if (*r > 0)
+			{
+				// if greater than 0, subtract
+				(*r)--;
+			}
+			else
+			{
+				// if negative, add
+				(*r)++;
+			}
+		}
+		else
+		{
+			// otherwise, iterate both coordinates
+
+			// iterate r
+			if (*r > 0)
+			{
+				// if greater than 0, subtract
+				(*r)--;
+			}
+			else if (*r < 0)
+			{
+				// if negative, add
+				(*r)++;
+			}
+			else
+			{
+				// if 0, then need p
+				if (*p > 0)
+				{
+					// if p greater than 0, decrement
+					(*r)--;
+				}
+				else
+				{
+					// otherwise, increment
+					(*r)--;
+				}
+			}
+
+
+
+
+			// iterate p
+			if (*p > 0)
+			{
+				// if greater than 0, subtract
+				(*p)--;
+			}
+			else if (*p < 0)
+			{
+				// if negative, add
+				(*p)++;
+			}
+			else
+			{
+				// if 0, then need r
+				if (*r > 0)
+				{
+					// if r greater than 0, increment
+					(*p)++;
+				}
+				else
+				{
+					// otherwise, decrement
+					(*p)--;
+				}
+			}
+		}
+	}
+
+
+
+	// TODO: extend to other rotations?
+
 
 
 		/*
