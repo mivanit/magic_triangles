@@ -24,7 +24,7 @@ public:
 
 
 	//default constructor
-	Triangle(int size)
+	Triangle(int size, bool in_draw = false)
 	{
 		//size of tri
 		n = size;
@@ -37,6 +37,8 @@ public:
 		{
 			cards[i] = Card(i,n);
 		}
+		//drawing
+		draw = in_draw;
 	}
 
 	//copy constructor
@@ -49,6 +51,8 @@ public:
 		k = n * (n+1) / 2;
 		//initialie array of empty cards
 		cards = new Card[k+1];
+		//copy whether to draw
+		draw = x->draw;
 
 		//loop to copy card data
 		for (int i = 0; i <= k; i++)
@@ -101,6 +105,8 @@ public:
 				//copy tri, fill card, recurse if needed, display (if draw==true)
 				//if on last layer, check that it fills the triangle and return 1
 
+				this->fill_tri_loop();
+
 				//create copy of the triangle in its current state
 				//this isnt necessary for calculations,
 				//but makes the code make more sense and enables correct drawing of filled tris
@@ -134,6 +140,7 @@ public:
 				//if tri if fully det
 				if (x == n)
 				{
+					subtri.fill_tri_loop();
 					//TODO: impl chk for triangle filled
 					//its bugged right now and always returns false
 					//if (chk_all_filled())

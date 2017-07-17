@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int test_tri(int n);
+int test_tri(int n, bool draw);
 void gen_tri_index(int n);
 void print_trind_test();
 
@@ -28,18 +28,20 @@ int main()
 	const int max_tri_size = 15;
 	gen_tri_index(max_tri_size);
 
-	for (int i = 1; i <= 10; i++)
+
+	//test triangles
+	for (int i = 1; i <= 4; i++)
 	{
-		test_tri(i);
+		test_tri(i,true);
 	}
 }
 
-int test_tri(int n)
+int test_tri(int n, bool draw = false)
 {
 	//cout << "testing tri of size " << n << endl;
 
 	//create triangle
-	Triangle tester = Triangle(n);
+	Triangle tester = Triangle(n, draw);
 
 	//calculate
 	int comb = tester.arrange_main();
