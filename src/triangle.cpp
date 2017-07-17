@@ -259,34 +259,27 @@ public:
 		//this shouldnt be possible but I haven't proved it yet so idk
 
 		//keep going until all valid tri sizes checked
-		while (loop_continue)
+		//TODO: figure out why the code breaks for n < 4 if we make the
+		//		looping requirement just size <= n
+		while ( size <= n + 3 )
 		{
-			//continue until there are no 3^i + 1 tris can remain inside
-			if ( size <= n+1 )
+			//calculate tri size
+			size = ((3 ^ i) + 1);
+
+			//if the triangle corners fit inside the tri
+			//call corner checking function on the index we have been given
+			//if this card turns out to be the corner of a triangle, fill it
+			if ( chk_corner_tri( index, size ) )
 			{
-				//calculate tri size
-				size = ((3 ^ i) + 1);
-
-				//if the triangle corners fit inside the tri
-				//call corner checking function on the index we have been given
-				//if this card turns out to be the corner of a triangle, fill it
-				if ( chk_corner_tri( index, size ) )
-				{
-					//change the actual card
-					(cards[index]).fill();
-
-					//store that the card is changed
-					changed = true;
-				}
-
-				//iterate counter
-				i++;
+				//change the actual card
+				//use fill() to indicate it was filled, not placed
+				(cards[index]).fill();
+				//store that the card is changed
+				changed = true;
 			}
-			else
-			{
-				//exit the loop if all sufficiently small tris have been checked
-				loop_continue = false;
-			}
+
+			//iterate counter
+			i++;
 		}
 
 		//return whether anything has changed
@@ -298,12 +291,10 @@ public:
 	{
 		// r/p = row/place
 		//get r/p of index
-		//int r = trind[index].first;
-		//int p = trind[index].second;
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
-		//triangle of size x >implies> corners are x-1 away
+		//triangle of size x implies corners are x-1 away
 		int k = x - 1;
 
 		//check 2 corners above
@@ -330,7 +321,7 @@ public:
 		//TODO: throw error if base r/p outside
 
 		//first check everything is inside
-		if (chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
+		if (chk_in(r,p) && chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
 		{
 			//if not at the edge, check those two cards
 			bool test1 = cards[crd.to_index(r + r_1, p + p_1)].get_det();
@@ -350,7 +341,7 @@ public:
 	//function for checking that a p/r are inside the triangle
 	bool chk_in(int r, int p)
 	{
-		return ((p > 0) && (p <= r) && (r <= n) && (r > 0));
+		return ( (p > 0) && (p <= r) && (r <= n) && (r > 0) );
 	}
 
 
