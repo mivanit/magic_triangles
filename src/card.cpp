@@ -58,24 +58,22 @@ public:
 
 	bool place(int x)
 	{
-		if (!det);
+		if (!det  && place_order == 0);
 		{
 			det = true;
 			place_order = x;
-			return true;
 		}
-		return false;
+		return (!get_det());
 	}
 
 	bool fill()
 	{
-		if (!det);
+		if (!det && place_order == 0);
 		{
 			det = true;
 			place_order = -1;
-			return true;
 		}
-		return false;
+		return (!get_det());
 	}
 
 	bool get_det()

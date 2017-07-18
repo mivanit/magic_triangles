@@ -27,18 +27,18 @@ int main()
 	cout << "magic_triangles started\n";
 	//DONT REMOVE THIS
 	//GENERATES THE INDEX OF INDEX TO ROW/PLACE CONVERSIONS
-	const int max_tri_size = 500;
+	const int max_tri_size = 1000;
 	gen_tri_index(max_tri_size);
 	cout << "trind generated up to " << max_tri_size << endl;
 	cout << "===========================\n\n";
 
 	//test triangles
-	for (int i = 1; i <= 5; i++)
+	for (int i = 1; i <= 10; i++)
 	{
-		test_tri(i,true);
+		test_tri(i,false);
 	}
 
-	//pause();
+	pause();
 }
 
 int test_tri(int n, bool draw = false)

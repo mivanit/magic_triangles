@@ -102,6 +102,12 @@ public:
 		//loop through all remaining empty, unchecked cards
 		for (int i = chk_idx + 1; i <= k; i++)
 		{
+			if (draw)
+			{
+				draw_tri();
+				cout << endl;
+			}
+
 			//fill this triangle, just in case
 			this->fill_tri_loop();
 
@@ -281,9 +287,11 @@ public:
 			{
 				// change the actual card
 				// use fill() to indicate it was filled, not placed
-				(cards[index]).fill();
-				// store that the card is changed
-				changed = true;
+				if ((cards[index]).fill())
+				{
+					// store that the card is changed
+					changed = true;
+				}
 			}
 
 			// iterate counter
