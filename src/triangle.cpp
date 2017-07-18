@@ -314,10 +314,12 @@ public:
 			// TODO: might not be unique to 3 tris
 			if (chk_corner_tri_dir(index, 3, 0))
 			{
-				// if both these conditions pass, fill the triangle
-				fill_3tri_dir(index, 0);
-				// return that a change has occured
-				return true;
+				// if both these conditions pass, try to fill the triangle
+				if (fill_3tri_dir(index, 0))
+				{
+					// return that a change has occured
+					return true;
+				}
 			}
 		}
 		// if you get to here, no change has occured
@@ -327,8 +329,10 @@ public:
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
 	// TODO: fctn for rotating? (-partially complete)
-	void fill_3tri_dir(int index, int d)
+	bool fill_3tri_dir(int index, int d)
 	{
+		bool changed = false;
+
 		// get r/p of index
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
@@ -353,10 +357,18 @@ public:
 		// fill cards
 
 		// counterclockwise card
-		cards[crd.to_index(r + r_m, p + p_m)].fill();
+		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		{
+			changed = true;
+		}
+
 		rot(&r_m, &p_m);
 		// clockwise card
-		cards[crd.to_index(r + r_m, p + p_m)].fill();
+		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		{
+			changed = true;
+		}
+
 		// furthest card
 		// hardcoded for now
 		// TODO: fix this mess
@@ -376,7 +388,12 @@ public:
 			r_m--;
 		}
 
-		cards[crd.to_index(r + r_m, p + p_m)].fill();
+		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		{
+			changed = true;
+		}
+
+		return changed;
 	}
 
 
