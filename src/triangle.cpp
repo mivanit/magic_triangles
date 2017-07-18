@@ -338,17 +338,21 @@ public:
 	// then fill the 3 missing cards because the triangle should be defined
 	bool fill_3tri_corners(int r, int p, int d)
 	{
+		cout << "test2\n";
 		int index = crd.to_index(r,p);
 		// check to see the given card is determined
 		if (cards[index].get_det())
 		{
+			cout << "test4\n";
 			// if it is, check the other 2 in the given direction
 			// 3 is hardcoded for this because unique for 3 tris
 			// TODO: might not be unique to 3 tris
 			if (chk_corner_tri_dir(index, 3, d))
 			{
+				cout << "test5\n";
 				// if both these conditions pass, fill the triangle
 				fill_3tri_dir(index, d);
+				cout << "test7\n";
 			}
 		}
 	}
@@ -358,6 +362,7 @@ public:
 	// TODO: fctn for rotating? (-partially complete)
 	bool fill_3tri_dir(int index, int d)
 	{
+		cout << "test6\n";
 		// get r/p of index
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
@@ -431,6 +436,7 @@ public:
 	// 0 is up, -1 is left, 1 is right
 	bool chk_corner_tri_dir(int index, int size, int d)
 	{
+		cout << "test8\n";
 		// r/p = row/place
 		//get r/p of index
 		int r = cards[index].get_row();
@@ -438,6 +444,7 @@ public:
 
 		//triangle of size x implies corners are size - 1 away
 		int x = size - 1;
+		cout << "test9\n";
 
 		//determine values
 		int r_1 = x * (1 - abs(d));
@@ -457,6 +464,8 @@ public:
 		{
 			p_2 = 0;
 		}
+
+		cout << "test10\n";
 
 		return chk_adj(r, p, r_1, p_1, r_2, p_2);
 	}

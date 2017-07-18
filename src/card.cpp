@@ -76,12 +76,14 @@ public:
 
 	int get_row()
 	{
-		return trind[index].first;
+		cout << "test_getrow\n";
+		return (trind[index].first);
 	}
 
 	int get_place()
 	{
-		return trind[index].second;
+		cout << "test_getplace\n";
+		return (trind[index].second);
 	}
 
 

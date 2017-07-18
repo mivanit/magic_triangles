@@ -19,6 +19,7 @@ void print_trind_test();
 //function in card.cpp handles other direction
 //cause its much easier
 //trind stands for triangle_index, im too lazy to type
+// TODO: fix the mess that is all the rotation code
 pair<int,int> * trind;
 
 int main()
@@ -28,11 +29,10 @@ int main()
 	const int max_tri_size = 15;
 	gen_tri_index(max_tri_size);
 
-
 	//test triangles
 	for (int i = 1; i <= 10; i++)
 	{
-		test_tri(i,false);
+		test_tri(i,true);
 	}
 }
 
