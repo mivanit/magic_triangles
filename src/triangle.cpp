@@ -440,6 +440,7 @@ public:
 		// r/p = row/place
 		//get r/p of index
 		int r = cards[index].get_row();
+		cout << "test11\n";
 		int p = cards[index].get_place();
 
 		//triangle of size x implies corners are size - 1 away
