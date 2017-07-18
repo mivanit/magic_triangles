@@ -258,7 +258,7 @@ public:
 		// TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
 
-		// TODO: add check for 3 tri special case corner fill
+		// TODO: add check for 3 tri special case corner fill (done?)
 		fill_special_3tri(index);
 
 		// keep going until all valid tri sizes checked
@@ -301,14 +301,30 @@ public:
 		int p = cards[index].get_place();
 
 		// modifiers
-		int r_m = r;
-		int p_m = p;
+		int r_m = 1;
+		int p_m = 0;
 
 		// loop for getting all directions
-		for (int i = 0, i < 6; i++)
+		for (int i = 0; i < 6; i++)
 		{
+			// declare direction
+			int d;
+			// calculate direction from i
+			if (i <= 2)
+			{
+				d = 0;
+			}
+			else if (i <= 4)
+			{
+				d = 1;
+			}
+			else
+			{
+				d = -1;
+			}
+
 			// send it off to fill_3tri_corners() to test it
-			fill_3tri_corners(r + r_m, p + p_m);
+			fill_3tri_corners(r + r_m, p + p_m, d);
 
 			// rotate the coord modifiers before moving on
 			rot(&r_m, &r_m);
@@ -483,7 +499,7 @@ public:
 	// rotate a relative coordinate modifier 60 degrees clockwise
 	// ONLY WORKS FOR ADJACENT COORDS
 	// passes by reference
-	void rot(&r,&p)
+	void rot(int * r, int * p)
 	{
 		if (*r == *p)
 		{
