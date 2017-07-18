@@ -236,7 +236,7 @@ public:
 			{
 				// if the card is determined,
 				// check for the special 3tri case
-				if (fill_special_3tri(index))
+				if (fill_3tri_corners(i))
 				{
 					// if changed, save that information
 					changed = true;
@@ -297,47 +297,37 @@ public:
 
 
 	// special case check for the 3 triangle corners case
-	// checks if this card is the corner of a 3tri
-	// calls fill_3tri_corners to do the actual work
-	bool fill_special_3tri(int index)
-	{
-		// get r/p of index
-		int r = cards[index].get_row();
-		int p = cards[index].get_place();
-
-		fill_3tri_corners(r + r_m, p + p_m, d);
-
-			// rotate the coord modifiers before moving on
-			rot(&r_m, &r_m);
-		}
-	}
-
-
-	// takes r/p of a card
-	// checks the corners in the specified direction
+	// checks if this card is ONLY THE BOTTOM the corner of a 3tri
+	// TODO: re-impliment all directions checking
+	// takes index of a card
 	// if the triangle is filled (including the card at r/p),
 	// then fill the 3 missing cards because the triangle should be defined
-	bool fill_3tri_corners(int r, int p, int d)
+	bool fill_3tri_corners(int index)
 	{
-		int index = crd.to_index(r,p);
 		// check to see the given card is determined
+		// this should be deprecated because it is checked for before the fctn call
+		// but leaving it in just in case
 		if (cards[index].get_det())
 		{
 			// if it is, check the other 2 in the given direction
 			// 3 is hardcoded for this because unique for 3 tris
 			// TODO: might not be unique to 3 tris
-			if (chk_corner_tri_dir(index, 3, d))
+			if (chk_corner_tri_dir(index, 3, 0))
 			{
 				// if both these conditions pass, fill the triangle
-				fill_3tri_dir(index, d);
+				fill_3tri_dir(index, 0);
+				// return that a change has occured
+				return true;
 			}
 		}
+		// if you get to here, no change has occured
+		return false;
 	}
 
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
 	// TODO: fctn for rotating? (-partially complete)
-	bool fill_3tri_dir(int index, int d)
+	void fill_3tri_dir(int index, int d)
 	{
 		// get r/p of index
 		int r = cards[index].get_row();
