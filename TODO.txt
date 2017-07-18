@@ -3,4 +3,6 @@ OLD:
 
 - implement checked card index in every layer, not just first
 
--fix not filling cards on last layer
+- fix not filling cards on last layer
+
+- impliment use of rpcoord class instead of manually handling it everywhere?

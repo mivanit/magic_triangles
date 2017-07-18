@@ -311,7 +311,7 @@ public:
 			fill_3tri_corners(r + r_m, p + p_m);
 
 			// rotate the coord modifiers before moving on
-			rot(&r_m, &r_m)
+			rot(&r_m, &r_m);
 		}
 	}
 
@@ -327,10 +327,12 @@ public:
 		if (cards[index].get_det())
 		{
 			// if it is, check the other 2 in the given direction
-			if (chk_corner_tri_dir(index, d))
+			// 3 is hardcoded for this because unique for 3 tris
+			// TODO: might not be unique to 3 tris
+			if (chk_corner_tri_dir(index, 3, d))
 			{
-
-
+				// if both these conditions pass, fill the triangle
+				fill_3tri_dir(index, d);
 			}
 		}
 	}
@@ -344,15 +346,50 @@ public:
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
-		// temp vars
-		int r_1 = r;
-		int p_1 = p;
+		// modifiers
+		int r_m = 1;
+		int p_m = 0;
 
-		// clockwise
+		// first, rotate to reach the correct d, which are 120 degrees apart
+		int times_to_rotate = d * 2;
+		// account for the -1 case
+		if (d == -1)
+		{
+			times_to_rotate = 4;
+		}
 
-		// counterclockwise
+		for (int i = 0; i <= times_to_rotate; i++)
+		{
+			rot(&r_m, &p_m);
+		}
 
-		// furthest
+		// fill cards
+
+		// counterclockwise card
+		cards[crd.to_index(r + r_m, p + p_m)].fill();
+		rot(&r_m, &p_m);
+		// clockwise card
+		cards[crd.to_index(r + r_m, p + p_m)].fill();
+		// furthest card
+		// hardcoded for now
+		// TODO: fix this mess
+		if (d == 0)
+		{
+			// if up
+			r_m++;
+		}
+		else if (d == 1)
+		{
+			// if right
+			p_m++;
+		}
+		else
+		{
+			// if left
+			r_m--;
+		}
+
+		cards[crd.to_index(r + r_m, p + p_m)].fill();
 	}
 
 
