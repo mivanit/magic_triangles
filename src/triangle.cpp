@@ -297,7 +297,7 @@ public:
 
 
 	// special case check for the 3 triangle corners case
-	// checks the 6 surrounding cards for whether they are part of a 3 tri
+	// checks if this card is the corner of a 3tri
 	// calls fill_3tri_corners to do the actual work
 	bool fill_special_3tri(int index)
 	{
@@ -305,31 +305,7 @@ public:
 		int r = cards[index].get_row();
 		int p = cards[index].get_place();
 
-		// modifiers
-		int r_m = 1;
-		int p_m = 0;
-
-		// loop for getting all directions
-		for (int i = 0; i < 6; i++)
-		{
-			// declare direction
-			int d;
-			// calculate direction from i
-			if (i <= 2)
-			{
-				d = 0;
-			}
-			else if (i <= 4)
-			{
-				d = 1;
-			}
-			else
-			{
-				d = -1;
-			}
-
-			// send it off to fill_3tri_corners() to test it
-			fill_3tri_corners(r + r_m, p + p_m, d);
+		fill_3tri_corners(r + r_m, p + p_m, d);
 
 			// rotate the coord modifiers before moving on
 			rot(&r_m, &r_m);
