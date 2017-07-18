@@ -225,16 +225,24 @@ public:
 			//if card is not yet determined
 			if ( cards[i].get_det() == false )
 			{
-				//cout << "chk card @ " << i << endl;
-				//check it
+				//check if it should be filled
 				if (fill_card(i))
 				{
-					//cout << "card filled @ " << i << endl;
-
 					//if it changes, then save that information
 					changed = true;
 				}
 			}
+			else
+			{
+				// if the card is determined,
+				// check for the special 3tri case
+				if (fill_special_3tri(index))
+				{
+					// if changed, save that information
+					changed = true;
+				}
+			}
+
 		}
 
 		//return whether any cards were changed
@@ -257,9 +265,6 @@ public:
 
 		// TODO: add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
-
-		// TODO: add check for 3 tri special case corner fill (done?)
-		fill_special_3tri(index);
 
 		// keep going until all valid tri sizes checked
 		// TODO: figure out why the code breaks for n < 4 if we make the

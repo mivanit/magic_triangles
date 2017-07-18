@@ -33,7 +33,7 @@ int main()
 	cout << "===========================\n\n";
 
 	//test triangles
-	for (int i = 1; i <= 4; i++)
+	for (int i = 1; i <= 5; i++)
 	{
 		test_tri(i,true);
 	}
@@ -50,7 +50,7 @@ int test_tri(int n, bool draw = false)
 
 	//calculate
 	int comb = tester.arrange_main();
-	cout << "triangle size:\t" << n << "\tarrangements:\t" << comb << endl;
+	cout << "triangle size:\t" << n << "\tarrangements:\t" << comb << endl << endl;
 
 	//cout << "tri of size " << n << " complete!" << "\n\n";
 
