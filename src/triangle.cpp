@@ -100,19 +100,13 @@ public:
 		int chk_idx = in_chk_index;
 
 		//loop through all remaining empty, unchecked cards
-		for (int i = chk_idx + 1; i <= k; i++)
+		for (int i = chk_idx; i <= k; i++)
 		{
-			if (draw)
-			{
-				draw_tri();
-				cout << endl;
-			}
-
-			//fill this triangle, just in case
+			// fill this triangle, just in case
 			this->fill_tri_loop();
 
-			//if card is not determined, and this index has not yet been checked:
-			if ( !(cards[i].get_det()) && (i > chk_idx) )
+			// if card is NOT determined, and this index has not yet been checked:
+			if ( !(cards[i].get_det()) ) // && (i >= chk_idx) )
 			{
 				//copy tri, fill card, recurse if needed, display (if draw==true)
 				//if on last layer, check that it fills the triangle and return 1
@@ -237,7 +231,9 @@ public:
 				{
 					//if it changes, then save that information
 					changed = true;
+					// cout << i << "\tcard filled\n";
 				}
+				// cout << i << "\tcard\t\tNOT filled\n";
 			}
 			else
 			{
@@ -251,7 +247,9 @@ public:
 				{
 					// if changed, save that information
 					changed = true;
+					// cout << i << "\tcard filled\n";
 				}
+				// cout << i << "\tcard\t\tNOT filled\n";
 			}
 		}
 
@@ -341,7 +339,7 @@ public:
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
 	// TODO: fctn for rotating? (-partially complete)
-	bool fill_3tri_dir(int index, int d)
+	bool fill_3tri_dir(int index, int dir)
 	{
 		bool changed = false;
 
@@ -353,6 +351,43 @@ public:
 		int r_m = 1;
 		int p_m = 0;
 
+
+
+
+		// hard coding only up case for now
+		// TODO: this breaks because out of bounds of tri,
+		// look back into the call for this fctn
+		if (r <= (n - 2) )
+		{
+			// left
+			r_m = 1;
+			p_m = 0;
+			if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+			{
+				changed = true;
+			}
+
+			// right
+			r_m = 1;
+			p_m = 1;
+			if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+			{
+				changed = true;
+			}
+
+			// furthest
+			r_m = 2;
+			p_m = 1;
+			if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+			{
+				changed = true;
+			}
+		}
+		return changed;
+
+
+		// old code with broken rotation implementation:
+		/*
 		// first, rotate to reach the correct d, which are 120 degrees apart
 		int times_to_rotate = d * 2;
 		// account for the -1 case
@@ -370,14 +405,16 @@ public:
 		// fill cards
 
 		// counterclockwise card
-		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
 		{
 			changed = true;
 		}
 
+		// rotate
 		rot(&r_m, &p_m);
+
 		// clockwise card
-		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
 		{
 			changed = true;
 		}
@@ -401,12 +438,14 @@ public:
 			r_m--;
 		}
 
-		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
+
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
 		{
 			changed = true;
 		}
 
 		return changed;
+		*/
 	}
 
 

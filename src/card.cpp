@@ -59,7 +59,7 @@ public:
 	// if success, return true
 	bool place(int x)
 	{
-		if ((!det)  && (place_order == 0));
+		if (!det)// && (place_order == 0));
 		{
 			det = true;
 			place_order = x;
@@ -72,7 +72,7 @@ public:
 	// if success, return true
 	bool fill()
 	{
-		if ((!det) && (place_order == 0));
+		if (!det)// && (place_order == 0));
 		{
 			det = true;
 			place_order = -1;
