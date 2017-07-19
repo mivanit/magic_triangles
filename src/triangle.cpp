@@ -106,7 +106,8 @@ public:
 			this->fill_tri_loop();
 
 			// if card is NOT determined, and this index has not yet been checked:
-			if ( !(cards[i].get_det()) ) // && (i >= chk_idx) )
+			// TODO: why the FUCK doesnt this work??????
+			if ( cards[i].empty() ) // && (i >= chk_idx) )
 			{
 				//copy tri, fill card, recurse if needed, display (if draw==true)
 				//if on last layer, check that it fills the triangle and return 1

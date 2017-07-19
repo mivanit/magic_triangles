@@ -30,6 +30,7 @@ public:
 	{
 		index = in_index;
 		n = in_n;
+		det = false;
 	}
 
 	//copy constructor
@@ -84,6 +85,19 @@ public:
 	bool get_det()
 	{
 		return det;
+	}
+
+	bool empty()
+	{
+		if (place_order == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		// return (!(det));
 	}
 
 	int get_row()
