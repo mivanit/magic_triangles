@@ -7,6 +7,12 @@
 int factorial(int n);
 void pause();
 
+
+
+
+
+
+
 int factorial(int n)
 {
 	if (n == 1)
@@ -18,7 +24,6 @@ int factorial(int n)
 		return ( n * factorial(n-1) );
 	}
 }
-
 
 void pause()
 {

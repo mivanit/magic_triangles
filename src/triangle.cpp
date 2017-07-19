@@ -241,11 +241,12 @@ public:
 			}
 			else
 			{
+				// if the card is determined,
+				// check for the special 3tri case
+
 				// could make check if the triangle is n > 3
 				// but this only optimizes for small cases that take no time already
 
-				// if the card is determined,
-				// check for the special 3tri case
 				if (fill_3tri_corners(i))
 				{
 					// if changed, save that information
@@ -283,7 +284,7 @@ public:
 			// calculate tri size
 			size = ((3 ^ i) + 1);
 
-			// if the triangle corners fit inside the tri
+			// if the triangle corners could fit inside the tri
 			// call corner checking function on the index we have been given
 			// if this card turns out to be the corner of a triangle, fill it
 			if ( chk_all_corner_tri( index, size ) )
@@ -360,6 +361,7 @@ public:
 			times_to_rotate = 4;
 		}
 
+		// rotate to reach the correct direction
 		for (int i = 0; i <= times_to_rotate; i++)
 		{
 			rot(&r_m, &p_m);
@@ -368,14 +370,14 @@ public:
 		// fill cards
 
 		// counterclockwise card
-		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
 		{
 			changed = true;
 		}
 
 		rot(&r_m, &p_m);
 		// clockwise card
-		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
 		{
 			changed = true;
 		}
@@ -399,7 +401,7 @@ public:
 			r_m--;
 		}
 
-		if (cards[crd.to_index(r + r_m, p + p_m)].fill())
+		if ((cards[crd.to_index(r + r_m, p + p_m)]).fill())
 		{
 			changed = true;
 		}
