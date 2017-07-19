@@ -231,6 +231,7 @@ public:
 			//if card is not yet determined
 			if ( cards[i].get_det() == false )
 			{
+				// cout << changed << endl;
 				//check if it should be filled
 				if (fill_card(i))
 				{
@@ -240,6 +241,9 @@ public:
 			}
 			else
 			{
+				// could make check if the triangle is n > 3
+				// but this only optimizes for small cases that take no time already
+
 				// if the card is determined,
 				// check for the special 3tri case
 				if (fill_3tri_corners(i))
@@ -248,7 +252,6 @@ public:
 					changed = true;
 				}
 			}
-
 		}
 
 		//return whether any cards were changed
@@ -283,7 +286,7 @@ public:
 			// if the triangle corners fit inside the tri
 			// call corner checking function on the index we have been given
 			// if this card turns out to be the corner of a triangle, fill it
-			if ( chk_corner_tri( index, size ) )
+			if ( chk_all_corner_tri( index, size ) )
 			{
 				// change the actual card
 				// use fill() to indicate it was filled, not placed
@@ -406,7 +409,7 @@ public:
 
 
 	// checks for the x-th (3^x)+1 tri at an index
-	bool chk_corner_tri(int index, int x)
+	bool chk_all_corner_tri(int index, int x)
 	{
 		// check 2 corners above
 		bool test_U = chk_corner_tri_dir(index, x,  0);

@@ -38,7 +38,8 @@ int main()
 		test_tri(i,false);
 	}
 
-	pause();
+	//pause();
+
 }
 
 int test_tri(int n, bool draw = false)

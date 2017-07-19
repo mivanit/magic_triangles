@@ -55,25 +55,30 @@ public:
 	*/
 
 
-
+	// try to place a card, store the order x
+	// if success, return true
 	bool place(int x)
 	{
-		if (!det  && place_order == 0);
+		if ((!det)  && (place_order == 0));
 		{
 			det = true;
 			place_order = x;
+			return true;
 		}
-		return (!get_det());
+		return false;
 	}
 
+	// try to fill this card
+	// if success, return true
 	bool fill()
 	{
-		if (!det && place_order == 0);
+		if ((!det) && (place_order == 0));
 		{
 			det = true;
 			place_order = -1;
+			return true;
 		}
-		return (!get_det());
+		return false;
 	}
 
 	bool get_det()
