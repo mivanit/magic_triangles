@@ -18,3 +18,5 @@ also hopefully prove that any valid, non-conflicting arrangements of n cards alw
 
 some of the calculated configurations so far may be found in the /data directory
 calc.exe in the main directory will often be outdated, and does not have a real user interface yet, code must be edited directly
+
+the ".imdone" folder is for an atom plugin that tracks commented issues

@@ -5,7 +5,7 @@
 #include <tuple>
 #include <iostream>
 #include <cassert>
-#include "mylib.cpp"
+#include "lib_math.cpp"
 #include "triangle.cpp"
 
 using namespace std;
