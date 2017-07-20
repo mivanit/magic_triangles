@@ -23,16 +23,16 @@ public:
  */
 
 
-	//default constructor
-	Triangle(int size, bool in_draw = false)
+	// default constructor
+	Triangle(int size, bool in_draw = false, bool in_fill_tbl = true;)
 	{
-		//size of tri
+		// size of tri
 		n = size;
-		//number of indecies
+		// number of indecies
 		k = n * (n+1) / 2;
-		//initialize array of empty cards
+		// initialize array of empty cards
 		cards = new Card[k+1];
-		//fill
+		// fill
 		for (int i = 0; i <= k; i++)
 		{
 			cards[i] = Card(i,n);
@@ -46,22 +46,26 @@ public:
 			cards_placed_locations[i] = -1;
 		}
 
-		//drawing
+		// drawing
 		draw = in_draw;
+		// filling tbl
+		fill_tbl = in_fill_tbl;
 	}
 
-	//copy constructor
+	// copy constructor
 	Triangle(Triangle * x)
 	{
-		//copy triangle size
+		// copy triangle size
 		n = x->n;
-		//TODO:10 assert k = x.k
-		//calculate number of indecies
+		// TODO:10 assert k = x.k
+		// calculate number of indecies
 		k = n * (n+1) / 2;
-		//initialie array of empty cards
+		// initialie array of empty cards
 		cards = new Card[k+1];
-		//copy whether to draw
+		// copy whether to draw
 		draw = x->draw;
+		// copy whether to fill tbl
+		fill_tbl = x->fill_tbl;
 
 		// number of cards placed
 		cards_placed = x->cards_placed;
@@ -191,11 +195,12 @@ public:
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
-				// if last layer, add 1 for this card placement
-				// if tri if fully det
+				// if last card played and tri is fully det,
+				// add 1 for this card placement
 				if (x == n)
 				{
 					// fill the triangle's cards
+					// just in case
 					subtri.fill_tri_loop();
 					this->fill_tri_loop();
 
@@ -205,8 +210,21 @@ public:
 					if (subtri.chk_all_filled())
 					{
 						sub_total++;
+
+						// if fill_tbl is enabled,
+						// store data to global array
+						if (fill_tbl)
+						{
+							// to make sure proper num_placed_top
+							// use get_num_top() fctn
+
+							// iterate
+							tbl[n][get_num_top()]++;
+						}
 					}
 
+					// draw the triangle
+					// this can be moved as needed, and often is for debugging
 					if (draw)
 					{
 						subtri.draw_tri();
