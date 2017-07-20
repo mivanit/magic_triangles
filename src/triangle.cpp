@@ -46,7 +46,7 @@ public:
 	{
 		//copy triangle size
 		n = x->n;
-		//TODO: assert k = x.k
+		//TODO:10 assert k = x.k
 		//calculate number of indecies
 		k = n * (n+1) / 2;
 		//initialie array of empty cards
@@ -111,7 +111,7 @@ public:
 			}
 
 			// if card is NOT determined, and this index has not yet been checked:
-			// TODO: why the FUCK doesnt this work??????
+			// TODO:150 why the FUCK doesnt this work??????
 			if ( cards[i].empty() ) // && (i >= chk_idx) )
 			{
 				//copy tri, fill card, recurse if needed, display (if draw==true)
@@ -137,9 +137,23 @@ public:
 				chk_idx = i;
 
 				//fill the triangle's cards
-				subtri.fill_tri_loop();
-				this->fill_tri_loop();
+				// subtri.fill_tri_loop();
+				// this->fill_tri_loop();
 
+
+				subtri.fill_tri();
+				if (draw)
+				{
+					subtri.draw_tri();
+					cout << endl;
+				}
+				subtri.fill_tri();
+				if (draw)
+				{
+					subtri.draw_tri();
+					cout << endl;
+				}
+				subtri.fill_tri_loop();
 				if (draw)
 				{
 					subtri.draw_tri();
@@ -156,7 +170,7 @@ public:
 					//recurse
 					//pass next card layer, max checked index
 					//add to subtotal
-					//TODO: subtotal should be 0 apart from this
+					//TODO:120 subtotal should be 0 apart from this
 					sub_total = sub_total + subtri.check_arrange(x + 1, chk_idx);
 				}
 
@@ -173,16 +187,16 @@ public:
 					this->fill_tri_loop();
 
 
-					//TODO: impl chk for triangle filled
+					//TODO:70 impl chk for triangle filled
 					//its bugged right now and always returns false
 					//if (chk_all_filled())
 					sub_total++;
 
-					if (draw)
-					{
-						subtri.draw_tri();
-						cout << endl;
-					}
+					// if (draw)
+					// {
+					// 	subtri.draw_tri();
+					// 	cout << endl;
+					// }
 				}
 			}
 		}
@@ -235,7 +249,7 @@ public:
 		for (int i = 1; i <= k; i++)
 		{
 			//if card is not yet determined
-			if ( cards[i].get_det() == false )
+			if ( cards[i].empty() )
 			{
 				// cout << changed << endl;
 				//check if it should be filled
@@ -281,18 +295,19 @@ public:
 		//counter var
 		int i = 0;
 		//triangle chk size
-		int size = ((3 ^ i) + 1);
+		int size = (pow_int(3, i) + 1);
 
-		// TODO: add error checking for if more than one set tries to define this card
+		// TODO:0 add error checking for if more than one set tries to define this card
 		//this shouldnt be possible but I haven't proved it yet so idk
 
 		// keep going until all valid tri sizes checked
-		// TODO: figure out why the code breaks for n < 4 if we make the
+		// TODO:40 figure out why the code breaks for n < 4 if we make the
 		//		looping requirement just size <= n
 		while ( size <= n + 10 )
 		{
 			// calculate tri size
-			size = ((3 ^ i) + 1);
+			size = (pow_int(3, i) + 1);
+			cout << size << endl;
 
 			// if the triangle corners could fit inside the tri
 			// call corner checking function on the index we have been given
@@ -320,7 +335,7 @@ public:
 
 	// special case check for the 3 triangle corners case
 	// checks if this card is ONLY THE BOTTOM the corner of a 3tri
-	// TODO: re-impliment all directions checking
+	// TODO:100 re-impliment all directions checking
 	// takes index of a card
 	// if the triangle is filled (including the card at r/p),
 	// then fill the 3 missing cards because the triangle should be defined
@@ -333,7 +348,7 @@ public:
 		{
 			// if it is, check the other 2 in the given direction
 			// 3 is hardcoded for this because unique for 3 tris
-			// TODO: might not be unique to 3 tris
+			// TODO:90 might not be unique to 3 tris
 			if (chk_corner_tri_dir(index, 3, 0))
 			{
 				// if both these conditions pass, try to fill the triangle
@@ -350,7 +365,7 @@ public:
 
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
-	// TODO: fctn for rotating? (-partially complete)
+	// TODO:30 fctn for rotating? (-partially complete)
 	bool fill_3tri_dir(int index, int dir)
 	{
 		bool changed = false;
@@ -360,14 +375,12 @@ public:
 		int p = cards[index].get_place();
 
 		// modifiers
-		int r_m = 1;
+		int r_m = 0;
 		int p_m = 0;
 
 
-
-
 		// hard coding only up case for now
-		// TODO: this breaks because out of bounds of tri,
+		// TODO:130 this breaks because out of bounds of tri,
 		// look back into the call for this fctn
 		if (r <= (n - 2) )
 		{
@@ -433,7 +446,7 @@ public:
 
 		// furthest card
 		// hardcoded for now
-		// TODO: fix this mess
+		// TODO:60 fix this mess
 		if (d == 0)
 		{
 			// if up
@@ -495,7 +508,7 @@ public:
 		int r_1 = x * (1 - abs(d));
 		int p_1 = x * d;
 		int r_2 = x * (1 - 2 * abs(d));
-		// TODO: improve p_2 calculation?
+		// TODO:80 improve p_2 calculation?
 		int p_2;
 		if (d == 0)
 		{
@@ -522,7 +535,7 @@ public:
 	// original r, p, 1st r mod, p mod, 2nd r mod, p mod
 	bool chk_adj(int r, int p, int r_1, int p_1, int r_2, int p_2)
 	{
-		//TODO: throw error if base r/p outside
+		//TODO:140 throw error if base r/p outside
 
 		//first check everything is inside
 		if (chk_in(r,p) && chk_in(r + r_1, p + p_1) && chk_in(r + r_1, p + p_1))
@@ -631,7 +644,7 @@ public:
 
 
 
-	// TODO: extend to other rotations?
+	// TODO:20 extend to other rotations?
 
 
 
@@ -651,7 +664,7 @@ public:
 	void draw_tri()
 	{
 		//upside down pyramid drawing
-		//TODO: row/place labels?
+		//TODO:110 row/place labels?
 
 		for (int r = n; r > 0; r--)
 		{

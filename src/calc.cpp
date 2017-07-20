@@ -19,7 +19,7 @@ void print_trind_test();
 //function in card.cpp handles other direction
 //cause its much easier
 //trind stands for triangle_index, im too lazy to type
-// TODO: fix the mess that is all the rotation code
+// TODO:50 fix the mess that is all the rotation code
 pair<int,int> * trind;
 
 

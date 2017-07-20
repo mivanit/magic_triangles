@@ -25,6 +25,19 @@ int factorial(int n)
 	}
 }
 
+int pow_int(int base, int exponent)
+{
+	if (exponent == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return (base * pow_int(base, (exponent - 1)));
+	}
+}
+
+
 void pause()
 {
 	std::cout << "Press ENTER to continue...";
