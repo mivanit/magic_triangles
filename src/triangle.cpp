@@ -6,6 +6,7 @@
 using namespace std;
 
 extern pair<int,int> * trind;
+extern int ** tbl;
 
 class Triangle
 {
@@ -24,7 +25,7 @@ public:
 
 
 	// default constructor
-	Triangle(int size, bool in_draw = false, bool in_fill_tbl = true;)
+	Triangle(int size, bool in_draw = false, bool in_fill_tbl = true)
 	{
 		// size of tri
 		n = size;

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int test_tris(int n, bool draw);
+int test_tris(int n, bool draw, bool printtbl);
 
 int main()
 {
@@ -39,12 +39,12 @@ int main()
 
 }
 
-int test_tris(int n, bool draw = false)
+int test_tris(int n, bool draw = false, bool printtbl = true)
 {
 	//cout << "testing tri of size " << n << endl;
 
 	//create triangle
-	Triangle tester = Triangle(n, draw);
+	Triangle tester = Triangle(n, draw, printtbl);
 
 	//calculate
 	int comb = tester.arrange_main();
