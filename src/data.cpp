@@ -105,10 +105,10 @@ int * gen_tri_fulltbl(int n)
 {
 	// initialize array tbl
 	tbl = new int*[n+1];
-	for(int i = 1; i <= n; i++)
+	for(int i = 0; i <= n; i++)
 	{
 		tbl[i] = new int[n+1];
-		for(int j = 1; j <= n; j++)
+		for(int j = 0; j <= n; j++)
 		{
 			tbl[i][j] = 0;
 		}
@@ -118,18 +118,22 @@ int * gen_tri_fulltbl(int n)
 	// containing # of arrangements for tri of size n
 	// where tbl[i][j] holds the number of arrangements for tri size x,
 	// with y cards on the top row
+	// tbl[i][0] hold total for that n
 }
 
 // print the data up to n
 void print_tri_fulltbl(int n)
 {
+	// print key
+	cout << "n\ttotal\tnum top row" << endl;
+
 	for(int i = 1; i <= n; i++)
 	{
 		// print current n for readability
 		cout << i << "\t";
 
 		// loop through each value
-		for(int j = 1; j <= n; j++)
+		for(int j = 0; j <= n; j++)
 		{
 			// print it
 			cout << tbl[i][j] << "\t";

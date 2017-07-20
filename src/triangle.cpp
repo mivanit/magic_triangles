@@ -208,8 +208,8 @@ public:
 
 					// DONE: impl chk for triangle filled
 					// its bugged right now and always returns false
-					if (subtri.chk_all_filled())
-					{
+					// if (subtri.chk_all_filled())
+
 						sub_total++;
 
 						// if fill_tbl is enabled,
@@ -219,10 +219,13 @@ public:
 							// to make sure proper num_placed_top
 							// use get_num_top() fctn
 
-							// iterate
-							tbl[n][get_num_top()]++;
+							// iterate total
+							tbl[n][0]++;
+
+							// iterate top row subtotal
+							tbl[n][get_num_top()+1]++;
 						}
-					}
+					
 
 					// draw the triangle
 					// this can be moved as needed, and often is for debugging
