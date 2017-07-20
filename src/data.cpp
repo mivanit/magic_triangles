@@ -120,7 +120,20 @@ int * gen_tri_fulltbl(int n)
 	// with y cards on the top row
 }
 
-void print_tri_fulltbl(int n, int * tbl)
+// print the data up to n
+void print_tri_fulltbl(int n)
 {
+	for(int i = 1; i <= n; i++)
+	{
+		// print current n for readability
+		cout << i << "\t";
 
+		// loop through each value
+		for(int j = 1; j <= n; j++)
+		{
+			// print it
+			cout << tbl[i][j] << "\t";
+		}
+		cout << endl;
+	}
 }

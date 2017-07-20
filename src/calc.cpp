@@ -26,11 +26,14 @@ int main()
 	cout << "tbl prepared up to " << max_tri_size << endl;
 	cout << "===========================\n\n";
 
-	//test triangles
-	for (int i = 1; i <= 10; i++)
+	// test triangles
+	for (int i = 1; i <= 6; i++)
 	{
-		test_tris(i,false);
+		test_tris(i, false, true);
 	}
+
+	// print output
+	print_tri_fulltbl(6);
 
 	//pause();
 
