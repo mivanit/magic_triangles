@@ -1,8 +1,17 @@
-OLD:
--after card @ index 1 checked, dont ever check any combination with that card ever again
 
-- implement checked card index in every layer, not just first
 
-- fix not filling cards on last layer
 
-- impliment use of rpcoord class instead of manually handling it everywhere?
+
+
+[     ] fix checking of special 3tri case
+	[ ] check empty cards? (laggy at first?)
+	[ ] keep current (check only full, laggy towards end)
+	[ ] mix - check full first half of card placements, empty second half
+
+[ ] implement use of rpcoord class instead of manually handling it everywhere?
+
+[*] after card @ index 1 checked, dont ever check any combination with that card ever again
+
+[*] implement checked card index in every layer, not just first
+
+[*] fix not filling cards on last layer
