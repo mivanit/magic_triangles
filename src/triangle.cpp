@@ -653,7 +653,7 @@ int get_num_top()
 	{
 		// top row, so all have the same r value
 		// i is place value
-		int index = crd.to_index(n, i)
+		int index = crd.to_index(n, i);
 		if ( cards[index].place_order > 0 )
 		{
 			num_placed++;
@@ -752,9 +752,9 @@ int get_num_top()
 
 
 
-	//side length of triangle
+	// side length of triangle
 	int n;
-	//total number of indecies
+	// total number of indecies
 	// k = n*(n+1)/2
 	int k;
 
@@ -767,14 +767,17 @@ int get_num_top()
 	// array with locations of placed cards
 	int * cards_placed_locations;
 
-	//starts at 1, pyramid upwards
-	//index starts from left side
+	// starts at 1, pyramid upwards
+	// index starts from left side
 	Card * cards;
 
-	//card for using to_index
+	// card for using to_index
 	Card crd;
 
-	//boolean for whether to draw triangles
+	// boolean for whether to draw triangles
 	bool draw = false;
+
+	// boolean for whether to fill table with data
+	bool fill_tbl = true;
 
 };//end of triangle class

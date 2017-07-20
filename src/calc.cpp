@@ -1,38 +1,29 @@
 //Michael Ivanitskiy
 //started july 10 2017
-//v 0.1 (july 14 2017)
 
 #include <tuple>
 #include <iostream>
 #include <cassert>
 #include "lib_math.cpp"
 #include "triangle.cpp"
+#include "data.cpp"
 
 using namespace std;
 
-int test_tri(int n, bool draw);
-int * test_tri_fulltbl(int n);
-void print_tri_fulltbl(int n, int * tbl);
-void gen_tri_index(int n);
-void print_trind_test();
-
-//global variable for storing data
-//for lookup of row, pair from index
-//function in card.cpp handles other direction
-//cause its much easier
-//trind stands for triangle_index, im too lazy to type
-// TODO:50 fix the mess that is all the rotation code
-pair<int,int> * trind;
-
+int test_tris(int n, bool draw);
 
 int main()
 {
 	cout << "magic_triangles started\n";
-	//DONT REMOVE THIS
-	//GENERATES THE INDEX OF INDEX TO ROW/PLACE CONVERSIONS
-	const int max_tri_size = 1000;
+	const int max_tri_size = 20;
+	// DONT REMOVE THIS
+	// GENERATES THE INDEX OF (INDEX) TO (ROW/PLACE) CONVERSIONS
 	gen_tri_index(max_tri_size);
 	cout << "trind generated up to " << max_tri_size << endl;
+	// DONT REMOVE THIS EITHER
+	// GENERATES GLOBAL ARRAY OF FULL TRI DATA
+	gen_tri_fulltbl(max_tri_size);
+	cout << "tbl prepared up to " << max_tri_size << endl;
 	cout << "===========================\n\n";
 
 	//test triangles
@@ -60,64 +51,4 @@ int test_tris(int n, bool draw = false)
 
 
 	return comb;
-}
-
-int * test_tri_fulltbl(int n)
-{
-	// declare array of size n
-
-}
-
-void print_tri_fulltbl(int n, int * tbl)
-{
-
-}
-
-//generate the index out to a size
-//first term is row, second is place
-//index starts at 0
-
-void gen_tri_index(int n)
-{
-	//calculate what index we need to go out to
-	int max = n * (n+1) / 2;
-
-	trind = new pair<int,int>[max + 1];
-
-	//row, place
-	int r = 1;
-	int p = 1;
-
-	//lo
-	for (int i = 1; i < max; i++)
-	{
-		//store values
-		trind[i] = make_pair(r, p);
-
-		//iterate row, pair:
-		//if place is last item in row,
-		//set place to 1 and iterate row
-		if (p == r)
-		{
-			p = 1;
-			r++;
-		}
-		else
-		{
-			//else, iterate place
-			p++;
-		}
-	}
-}
-
-
-		//put in error checking for p > r?
-void print_trind_test()
-{
-	gen_tri_index(10);
-
-	for (int i = 1; i < 50; i++)
-	{
-		cout << trind[i].first << "\t" << trind[i].second << endl;
-	}
 }
