@@ -89,15 +89,7 @@ public:
 
 	bool empty()
 	{
-		if (place_order == 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		// return (!(det));
+		return (!(det));
 	}
 
 	int get_row()

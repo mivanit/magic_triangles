@@ -22,6 +22,7 @@ void print_trind_test();
 // TODO: fix the mess that is all the rotation code
 pair<int,int> * trind;
 
+
 int main()
 {
 	cout << "magic_triangles started\n";

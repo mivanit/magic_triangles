@@ -100,10 +100,15 @@ public:
 		int chk_idx = in_chk_index;
 
 		//loop through all remaining empty, unchecked cards
-		for (int i = chk_idx; i <= k; i++)
+		for (int i = (chk_idx + 1); i <= k; i++)
 		{
 			// fill this triangle, just in case
 			this->fill_tri_loop();
+
+			if ((i == 4) && (x == 2))
+			{
+				cout << "test\n";
+			}
 
 			// if card is NOT determined, and this index has not yet been checked:
 			// TODO: why the FUCK doesnt this work??????
@@ -134,6 +139,12 @@ public:
 				//fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
+
+				if (draw)
+				{
+					subtri.draw_tri();
+					cout << endl;
+				}
 
 				//if not last card, recurse
 				if (x < n)
