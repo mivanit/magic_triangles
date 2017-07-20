@@ -1,5 +1,5 @@
 
-[     ] go over current TODO comments
+[*    ] go over current TODO comments
 
 [     ] implement printing of arrangement breakdown by # of cards in top row
 

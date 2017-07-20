@@ -12,7 +12,7 @@ class Triangle
 public:
 
 
-	/*
+/*
 
 	 ██████ ████████  ██████  ██████
 	██         ██    ██    ██ ██   ██
@@ -20,7 +20,7 @@ public:
 	██         ██    ██    ██ ██   ██
 	 ██████    ██     ██████  ██   ██
 
-	 */
+ */
 
 
 	//default constructor
@@ -85,7 +85,7 @@ public:
 
 
 
-	/*
+/*
 
 	 ██████ ██   ██ ██   ██
 	██      ██   ██ ██  ██
@@ -93,7 +93,7 @@ public:
 	██      ██   ██ ██  ██
 	 ██████ ██   ██ ██   ██
 
-	*/
+*/
 
 
 
@@ -222,7 +222,7 @@ public:
 		return true;
 	}
 
-	/*
+/*
 
 	███████ ██ ██      ██
 	██      ██ ██      ██
@@ -230,7 +230,7 @@ public:
 	██      ██ ██      ██
 	██      ██ ███████ ███████
 
-	*/
+*/
 
 
 
@@ -334,7 +334,6 @@ public:
 	}
 
 
-
 	// special case check for the 3 triangle corners case
 	// checks if this card is ONLY THE BOTTOM the corner of a 3tri
 	// TODO:100 re-impliment all directions checking
@@ -364,6 +363,22 @@ public:
 		// if you get to here, no change has occured
 		return false;
 	}
+
+
+
+
+
+/*
+
+	██████   █████  ███████ ███████      ██████ ██   ██ ██   ██
+	██   ██ ██   ██ ██      ██          ██      ██   ██ ██  ██
+	██████  ███████ ███████ █████       ██      ███████ █████
+	██   ██ ██   ██      ██ ██          ██      ██   ██ ██  ██
+	██████  ██   ██ ███████ ███████      ██████ ██   ██ ██   ██
+
+*/
+
+
 
 	// fills the missing bits of a corner-only 3tri
 	// starting at the given index, and going in the given location
@@ -411,68 +426,6 @@ public:
 			}
 		}
 		return changed;
-
-
-		// old code with broken rotation implementation:
-		/*
-		// first, rotate to reach the correct d, which are 120 degrees apart
-		int times_to_rotate = d * 2;
-		// account for the -1 case
-		if (d == -1)
-		{
-			times_to_rotate = 4;
-		}
-
-		// rotate to reach the correct direction
-		for (int i = 0; i <= times_to_rotate; i++)
-		{
-			rot(&r_m, &p_m);
-		}
-
-		// fill cards
-
-		// counterclockwise card
-		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
-		{
-			changed = true;
-		}
-
-		// rotate
-		rot(&r_m, &p_m);
-
-		// clockwise card
-		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
-		{
-			changed = true;
-		}
-
-		// furthest card
-		// hardcoded for now
-		// TODO:60 fix this mess
-		if (d == 0)
-		{
-			// if up
-			r_m++;
-		}
-		else if (d == 1)
-		{
-			// if right
-			p_m++;
-		}
-		else
-		{
-			// if left
-			r_m--;
-		}
-
-
-		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
-		{
-			changed = true;
-		}
-
-		return changed;
-		*/
 	}
 
 
@@ -563,9 +516,25 @@ public:
 		return ( (p > 0) && (p <= r) && (r <= n) && (r > 0) );
 	}
 
+
+
+
+/*
+
+	██████   ██████  ████████
+	██   ██ ██    ██    ██
+	██████  ██    ██    ██
+	██   ██ ██    ██    ██
+	██   ██  ██████     ██
+
+*/
+
+
+
 	// rotate a relative coordinate modifier 60 degrees clockwise
 	// ONLY WORKS FOR ADJACENT COORDS
 	// passes by reference
+	// TODO: rotation code is shit, fix this
 	void rot(int * r, int * p)
 	{
 		if (*r == *p)
@@ -650,15 +619,62 @@ public:
 
 
 
-		/*
+/*
 
-		██████  ██████   █████  ██     ██
-		██   ██ ██   ██ ██   ██ ██     ██
-		██   ██ ██████  ███████ ██  █  ██
-		██   ██ ██   ██ ██   ██ ██ ███ ██
-		██████  ██   ██ ██   ██  ███ ███
+	███    ███ ██ ███████  ██████
+	████  ████ ██ ██      ██
+	██ ████ ██ ██ ███████ ██
+	██  ██  ██ ██      ██ ██
+	██      ██ ██ ███████  ██████
 
-		*/
+*/
+
+// returns the number of PLACED cards on the top row for any particular triangle
+int get_num_top()
+{
+	// declare counter var
+	int num_placed = 0;
+
+	// loop through cards at the top
+	for (int i = 1; i <= n; i++)
+	{
+		// top row, so all have the same r value
+		// i is place value
+		int index = crd.to_index(n, i)
+		if ( cards[index].place_order > 0 )
+		{
+			num_placed++;
+		}
+	}
+
+	return num_placed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+	██████  ██████   █████  ██     ██
+	██   ██ ██   ██ ██   ██ ██     ██
+	██   ██ ██████  ███████ ██  █  ██
+	██   ██ ██   ██ ██   ██ ██ ███ ██
+	██████  ██   ██ ██   ██  ███ ███
+
+*/
 
 
 
@@ -723,7 +739,7 @@ public:
 
 
 
-	/*
+/*
 
 	██    ██  █████  ██████  ███████
 	██    ██ ██   ██ ██   ██ ██
@@ -731,7 +747,7 @@ public:
 	 ██  ██  ██   ██ ██   ██      ██
 	  ████   ██   ██ ██   ██ ███████
 
-	*/
+*/
 
 
 

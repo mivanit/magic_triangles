@@ -1,0 +1,64 @@
+from Triangle . fill_3tri_dir
+
+
+
+		// old code with broken rotation implementation:
+		/*
+		// first, rotate to reach the correct d, which are 120 degrees apart
+		int times_to_rotate = d * 2;
+		// account for the -1 case
+		if (d == -1)
+		{
+			times_to_rotate = 4;
+		}
+
+		// rotate to reach the correct direction
+		for (int i = 0; i <= times_to_rotate; i++)
+		{
+			rot(&r_m, &p_m);
+		}
+
+		// fill cards
+
+		// counterclockwise card
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+		{
+			changed = true;
+		}
+
+		// rotate
+		rot(&r_m, &p_m);
+
+		// clockwise card
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+		{
+			changed = true;
+		}
+
+		// furthest card
+		// hardcoded for now
+		// TODO:60 fix this mess
+		if (d == 0)
+		{
+			// if up
+			r_m++;
+		}
+		else if (d == 1)
+		{
+			// if right
+			p_m++;
+		}
+		else
+		{
+			// if left
+			r_m--;
+		}
+
+
+		if ( (cards[crd.to_index(r + r_m, p + p_m)]).fill() )
+		{
+			changed = true;
+		}
+
+		return changed;
+		*/
