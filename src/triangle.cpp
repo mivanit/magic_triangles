@@ -128,7 +128,6 @@ public:
 			this->fill_tri_loop();
 
 			// if card is NOT determined, and this index has not yet been checked:
-			// TODO:150 why the FUCK doesnt this work??????
 			if ( cards[i].empty() ) // && (i >= chk_idx) )
 			{
 				// copy tri, fill card, recurse if needed, display (if draw==true)
@@ -188,7 +187,7 @@ public:
 					this->fill_tri_loop();
 
 
-					// TODO:70 impl chk for triangle filled
+					// DONE: impl chk for triangle filled
 					// its bugged right now and always returns false
 					if (subtri.chk_all_filled())
 					{
@@ -214,7 +213,7 @@ public:
 		int i = 1;
 		while (i <= k)
 		{
-			if ((cards[i]).place_order == 0)
+			if ( (cards[i]).empty() )
 			{
 				return false;
 			}
@@ -304,8 +303,8 @@ public:
 		//this shouldnt be possible but I haven't proved it yet so idk
 
 		// keep going until all valid tri sizes checked
-		// RESOLVED: figure out why the code breaks for n < 4 if we make the
-		//		looping requirement just size <= n
+		// DONE: figure out why the code breaks for n < 4
+		// if we make the looping requirement just size <= n
 		// A: its because i used ^ for exponentiation because im an idiot
 		while ( size <= n )
 		{
