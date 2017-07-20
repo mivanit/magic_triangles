@@ -1,7 +1,9 @@
 
+[     ] go over current TODO comments
 
+[     ] implement printing of arrangement breakdown by # of cards in top row
 
-
+[*****] implement storage of info about where cards in a tri are placed
 
 [     ] fix checking of special 3tri case
 	[ ] check empty cards? (laggy at first?)

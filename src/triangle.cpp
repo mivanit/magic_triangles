@@ -37,6 +37,15 @@ public:
 		{
 			cards[i] = Card(i,n);
 		}
+
+		// declare array with locations of placed cards
+		cards_placed_locations = new int[n+1];
+		// fill with -1 to indicate this card not yet placed
+		for (int i = 1; i <= n; i++)
+		{
+			cards_placed_locations[i] = -1;
+		}
+
 		//drawing
 		draw = in_draw;
 	}
@@ -53,6 +62,19 @@ public:
 		cards = new Card[k+1];
 		//copy whether to draw
 		draw = x->draw;
+
+		// number of cards placed
+		cards_placed = x->cards_placed;
+
+		// declare array with locations of placed cards
+		cards_placed_locations = new int[n+1];
+
+		// fill array with locations of placed cards
+		// fill with -1 to indicate this card not yet placed
+		for (int i = 1; i <= n; i++)
+		{
+			cards_placed_locations[i] = x->cards_placed_locations[i];
+		}
 
 		//loop to copy card data
 		for (int i = 0; i <= k; i++)
@@ -75,31 +97,31 @@ public:
 
 
 
-	//check_permutations main call
+	// check_permutations main call
 	int arrange_main()
 	{
-		//no cards have been checked and none have been placed,
-		//so tell it to place card 1 and check all cards
+		// no cards have been checked and none have been placed,
+		// so tell it to place card 1 and check all cards
 		return check_arrange(1, 0);
 	}
 
-	//recursive function for checking # of arrangements possible in this triangle
-	//with x cards
-	//makes copies of the current triangle with 1 card added, then calls itself
-	//takes card layer being placed as input
-	//to account for the fact that placed cards should not be distinct
-	//store the largest card index that has been tested
+	// recursive function for checking # of arrangements possible in this triangle
+	// with x cards
+	// makes copies of the current triangle with 1 card added, then calls itself
+	// takes card layer being placed as input
+	// to account for the fact that placed cards should not be distinct
+	// store the largest card index that has been tested
 	int check_arrange(int x, int in_chk_index)
 	{
-		//fill this triangle, just in case
+		// fill this triangle, just in case
 		this->fill_tri_loop();
 
-		//subtotal for this instance
+		// subtotal for this instance
 		int sub_total = 0;
-		//largest card index checked for this instance
+		// largest card index checked for this instance
 		int chk_idx = in_chk_index;
 
-		//loop through all remaining empty, unchecked cards
+		// loop through all remaining empty, unchecked cards
 		for (int i = (chk_idx + 1); i <= k; i++)
 		{
 			// fill this triangle, just in case
@@ -109,62 +131,66 @@ public:
 			// TODO:150 why the FUCK doesnt this work??????
 			if ( cards[i].empty() ) // && (i >= chk_idx) )
 			{
-				//copy tri, fill card, recurse if needed, display (if draw==true)
-				//if on last layer, check that it fills the triangle and return 1
+				// copy tri, fill card, recurse if needed, display (if draw==true)
+				// if on last layer, check that it fills the triangle and return 1
 
-				//fill this triangle, just in case
+				// fill this triangle, just in case
 				this->fill_tri_loop();
 
-				//create copy of the triangle in its current state
-				//this isnt necessary for calculations,
-				//but makes the code make more sense and enables correct drawing of filled tris
+				// create copy of the triangle in its current state
+				// this isnt necessary for calculations,
+				// but makes the code make more sense and enables correct drawing of filled tris
 				Triangle subtri = Triangle(this);
 
-				//fill the triangle's cards
+				// fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
-				//set card at index to "determined"
-				//use place() to store that this card was manually placed
+				// set card at index to "determined"
+				// use place() to store that this card was manually placed
 				(subtri.cards[i]).place(x);
 
-				//mark this card index as checked for this iteration
+				// mark in the array and var that this card was placed and where
+				subtri.cards_placed = x;
+				subtri.cards_placed_locations[x] = i;
+
+				// mark this card index as checked for this iteration
 				chk_idx = i;
 
 				// fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
-				//if not last card, recurse
+				// if not last card, recurse
 				if (x < n)
 				{
-					//fill the triangle's cards
+					// fill the triangle's cards
 					subtri.fill_tri_loop();
 					this->fill_tri_loop();
 
-					//recurse
-					//pass next card layer, max checked index
-					//add to subtotal
-					//TODO:120 subtotal should be 0 apart from this
+					// recurse
+					// pass next card layer, max checked index
+					// add to subtotal
+					// TODO:120 subtotal should be 0 apart from this
 					sub_total = sub_total + subtri.check_arrange(x + 1, chk_idx);
 				}
 
-				//fill the triangle's cards
+				// fill the triangle's cards
 				subtri.fill_tri_loop();
 				this->fill_tri_loop();
 
-				//if last layer, add 1 for this card placement
-				//if tri if fully det
+				// if last layer, add 1 for this card placement
+				// if tri if fully det
 				if (x == n)
 				{
-					//fill the triangle's cards
+					// fill the triangle's cards
 					subtri.fill_tri_loop();
 					this->fill_tri_loop();
 
 
-					//TODO:70 impl chk for triangle filled
-					//its bugged right now and always returns false
-					//if (chk_all_filled())
+					// TODO:70 impl chk for triangle filled
+					// its bugged right now and always returns false
+					// if (chk_all_filled())
 					sub_total++;
 
 					if (draw)
@@ -176,11 +202,11 @@ public:
 			}
 		}
 
-		//return subtotal
+		// return subtotal
 		return sub_total;
 	}
 
-	//function for checking all cards are filled
+	// function for checking all cards are filled
 	bool chk_all_filled()
 	{
 		int i = 1;
@@ -712,6 +738,12 @@ public:
 	//total number of indecies
 	// k = n*(n+1)/2
 	int k;
+
+	// number of cards placed
+	int cards_placed = 0;
+
+	// array with locations of placed cards
+	int * cards_placed_locations;
 
 	//starts at 1, pyramid upwards
 	//index starts from left side
