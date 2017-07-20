@@ -190,8 +190,10 @@ public:
 
 					// TODO:70 impl chk for triangle filled
 					// its bugged right now and always returns false
-					// if (chk_all_filled())
-					sub_total++;
+					if (subtri.chk_all_filled())
+					{
+						sub_total++;
+					}
 
 					if (draw)
 					{
@@ -302,9 +304,10 @@ public:
 		//this shouldnt be possible but I haven't proved it yet so idk
 
 		// keep going until all valid tri sizes checked
-		// TODO:40 figure out why the code breaks for n < 4 if we make the
+		// RESOLVED: figure out why the code breaks for n < 4 if we make the
 		//		looping requirement just size <= n
-		while ( size <= n + 10 )
+		// A: its because i used ^ for exponentiation because im an idiot
+		while ( size <= n )
 		{
 			// calculate tri size
 			size = (pow_int(3, i) + 1);
