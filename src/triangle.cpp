@@ -136,29 +136,9 @@ public:
 				//mark this card index as checked for this iteration
 				chk_idx = i;
 
-				//fill the triangle's cards
-				// subtri.fill_tri_loop();
-				// this->fill_tri_loop();
-
-
-				subtri.fill_tri();
-				if (draw)
-				{
-					subtri.draw_tri();
-					cout << endl;
-				}
-				subtri.fill_tri();
-				if (draw)
-				{
-					subtri.draw_tri();
-					cout << endl;
-				}
+				// fill the triangle's cards
 				subtri.fill_tri_loop();
-				if (draw)
-				{
-					subtri.draw_tri();
-					cout << endl;
-				}
+				this->fill_tri_loop();
 
 				//if not last card, recurse
 				if (x < n)
@@ -192,11 +172,11 @@ public:
 					//if (chk_all_filled())
 					sub_total++;
 
-					// if (draw)
-					// {
-					// 	subtri.draw_tri();
-					// 	cout << endl;
-					// }
+					if (draw)
+					{
+						subtri.draw_tri();
+						cout << endl;
+					}
 				}
 			}
 		}
@@ -307,7 +287,6 @@ public:
 		{
 			// calculate tri size
 			size = (pow_int(3, i) + 1);
-			cout << size << endl;
 
 			// if the triangle corners could fit inside the tri
 			// call corner checking function on the index we have been given
