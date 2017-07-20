@@ -11,6 +11,8 @@
 using namespace std;
 
 int test_tri(int n, bool draw);
+int * test_tri_fulltbl(int n);
+void print_tri_fulltbl(int n, int * tbl);
 void gen_tri_index(int n);
 void print_trind_test();
 
@@ -36,14 +38,14 @@ int main()
 	//test triangles
 	for (int i = 1; i <= 10; i++)
 	{
-		test_tri(i,false);
+		test_tris(i,false);
 	}
 
 	//pause();
 
 }
 
-int test_tri(int n, bool draw = false)
+int test_tris(int n, bool draw = false)
 {
 	//cout << "testing tri of size " << n << endl;
 
@@ -58,6 +60,17 @@ int test_tri(int n, bool draw = false)
 
 
 	return comb;
+}
+
+int * test_tri_fulltbl(int n)
+{
+	// declare array of size n
+
+}
+
+void print_tri_fulltbl(int n, int * tbl)
+{
+
 }
 
 //generate the index out to a size

@@ -83,6 +83,13 @@ public:
 		}
 	}
 
+	// destructor
+	~Triangle()
+	{
+		delete cards_placed_locations;
+		delete cards;
+	}
+
 
 
 /*
@@ -148,6 +155,12 @@ public:
 				// set card at index to "determined"
 				// use place() to store that this card was manually placed
 				(subtri.cards[i]).place(x);
+
+				// store that this cards was placed on the top row if needed
+				if (x == n)
+				{
+					subtri.num_placed_top++;
+				}
 
 				// mark in the array and var that this card was placed and where
 				subtri.cards_placed = x;
@@ -647,21 +660,9 @@ int get_num_top()
 		}
 	}
 
+	num_placed_top = num_placed;
 	return num_placed;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -759,6 +760,9 @@ int get_num_top()
 
 	// number of cards placed
 	int cards_placed = 0;
+
+	// number of cards on the top row
+	int num_placed_top = 0;
 
 	// array with locations of placed cards
 	int * cards_placed_locations;
