@@ -1,4 +1,5 @@
-# magic_triangles
+# triangle_configurations
+x
 by Michael Ivanitskiy
 Sumer 2017
 for Dr. Michael Jones

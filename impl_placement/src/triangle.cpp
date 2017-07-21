@@ -225,7 +225,7 @@ public:
 							// iterate top row subtotal
 							tbl[n][get_num_top()+1]++;
 						}
-					
+
 
 					// draw the triangle
 					// this can be moved as needed, and often is for debugging

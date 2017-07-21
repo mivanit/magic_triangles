@@ -14,7 +14,7 @@ int test_tris(int n, bool draw, bool printtbl);
 
 int main()
 {
-	cout << "magic_triangles started\n";
+	cout << "triangle_configurations started\n";
 	const int max_tri_size = 20;
 	// DONT REMOVE THIS
 	// GENERATES THE INDEX OF (INDEX) TO (ROW/PLACE) CONVERSIONS
@@ -33,10 +33,10 @@ int main()
 	}
 
 	// print output
-	print_tri_fulltbl(6);
+	print_tri_fulltbl(6,"../data/data_summary_1.tsv");
 
 	//pause();
-
+	return 0;
 }
 
 int test_tris(int n, bool draw = false, bool printtbl = true)

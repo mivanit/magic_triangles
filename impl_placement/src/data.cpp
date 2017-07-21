@@ -1,7 +1,8 @@
 // Michael Ivanitskiy
 // started july 10 2017
 
-
+#include <iostream>
+#include <fstream>
 
 // global variable for storing data
 // for lookup of row, pair from index
@@ -19,7 +20,7 @@ int ** tbl;
 void gen_tri_index(int n);
 void print_trind_test();
 
-int * test_tri_fulltbl(int n);
+int * test_tri_fulltbl(int n, string filename = "");
 void print_tri_fulltbl(int n, int * tbl);
 
 
@@ -122,22 +123,52 @@ int * gen_tri_fulltbl(int n)
 }
 
 // print the data up to n
-void print_tri_fulltbl(int n)
+void print_tri_fulltbl(int n, string filename = "")
 {
-	// print key
-	cout << "n\ttotal\tnum top row" << endl;
-
-	for(int i = 1; i <= n; i++)
+	// if filename left blank, use cout
+	// otherwise, use the file name
+	// TODO: is there a way to declare ostream and switch between it being cout and an ofstream?
+	if (filename.length() != 0)
 	{
-		// print current n for readability
-		cout << i << "\t";
+		ofstream fout;
+		fout.open (filename);
 
-		// loop through each value
-		for(int j = 0; j <= n; j++)
+		// print key
+		fout << "n\ttotal\tnum top row" << endl;
+
+		for(int i = 1; i <= n; i++)
 		{
-			// print it
-			cout << tbl[i][j] << "\t";
+			// print current n for readability
+			fout << i << "\t";
+
+			// loop through each value
+			for(int j = 0; j <= n; j++)
+			{
+				// print it
+				fout << tbl[i][j] << "\t";
+			}
+			fout << endl;
 		}
-		cout << endl;
+
+		fout.close();
+	}
+	else
+	{
+		// print key
+		cout << "n\ttotal\tnum top row" << endl;
+
+		for(int i = 1; i <= n; i++)
+		{
+			// print current n for readability
+			cout << i << "\t";
+
+			// loop through each value
+			for(int j = 0; j <= n; j++)
+			{
+				// print it
+				cout << tbl[i][j] << "\t";
+			}
+			cout << endl;
+		}
 	}
 }
