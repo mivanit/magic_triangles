@@ -136,26 +136,16 @@ public:
 		// loop through all remaining empty, unchecked cards
 		for (int i = (chk_idx + 1); i <= k; i++)
 		{
-			// fill this triangle, just in case
-			this->fill_tri_loop();
-
 			// if card is NOT determined, and this index has not yet been checked:
 			if ( cards[i].empty() ) // && (i >= chk_idx) )
 			{
 				// copy tri, fill card, recurse if needed, display (if draw==true)
 				// if on last layer, check that it fills the triangle and return 1
 
-				// fill this triangle, just in case
-				this->fill_tri_loop();
-
 				// create copy of the triangle in its current state
 				// this isnt necessary for calculations,
 				// but makes the code make more sense and enables correct drawing of filled tris
 				Triangle subtri = Triangle(this);
-
-				// fill the triangle's cards
-				subtri.fill_tri_loop();
-				this->fill_tri_loop();
 
 				// set card at index to "determined"
 				// use place() to store that this card was manually placed
@@ -181,10 +171,6 @@ public:
 				// if not last card, recurse
 				if (x < n)
 				{
-					// fill the triangle's cards
-					subtri.fill_tri_loop();
-					this->fill_tri_loop();
-
 					// recurse
 					// pass next card layer, max checked index
 					// add to subtotal
@@ -192,20 +178,10 @@ public:
 					sub_total = sub_total + subtri.check_arrange(x + 1, chk_idx);
 				}
 
-				// fill the triangle's cards
-				subtri.fill_tri_loop();
-				this->fill_tri_loop();
-
 				// if last card played and tri is fully det,
 				// add 1 for this card placement
 				if (x == n)
 				{
-					// fill the triangle's cards
-					// just in case
-					subtri.fill_tri_loop();
-					this->fill_tri_loop();
-
-
 					// DONE: impl chk for triangle filled
 					// its bugged right now and always returns false
 					// if (subtri.chk_all_filled())
