@@ -134,18 +134,18 @@ void print_tri_fulltbl(int n, string filename = "")
 		fout.open (filename);
 
 		// print key
-		fout << "n\ttotal\tnum top row" << endl;
+		fout << "n\t\ttotal\t\tnum top row" << endl;
 
 		for(int i = 1; i <= n; i++)
 		{
 			// print current n for readability
-			fout << i << "\t";
+			fout << i << "\t\t";
 
 			// loop through each value
 			for(int j = 0; j <= n; j++)
 			{
 				// print it
-				fout << tbl[i][j] << "\t";
+				fout << tbl[i][j] << "\t\t";
 			}
 			fout << endl;
 		}
@@ -155,18 +155,18 @@ void print_tri_fulltbl(int n, string filename = "")
 	else
 	{
 		// print key
-		cout << "n\ttotal\tnum top row" << endl;
+		cout << "n\t\ttotal\t\tnum top row" << endl;
 
 		for(int i = 1; i <= n; i++)
 		{
 			// print current n for readability
-			cout << i << "\t";
+			cout << i << "\t\t";
 
 			// loop through each value
 			for(int j = 0; j <= n; j++)
 			{
 				// print it
-				cout << tbl[i][j] << "\t";
+				cout << tbl[i][j] << "\t\t";
 			}
 			cout << endl;
 		}
