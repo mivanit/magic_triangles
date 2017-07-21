@@ -345,25 +345,30 @@ public:
 
 
 	// special case check for the 3 triangle corners case
-	// checks if this card is ONLY THE BOTTOM the corner of a 3tri
-	// TODO:100 re-impliment all directions checking
-	// takes index of a card
-	// if the triangle is filled (including the card at r/p),
-	// then fill the 3 missing cards because the triangle should be defined
+	// checks the card below (r--, p) for whether it is the bottom corner of a filled 3tri
+	// if it is, then fill the 3 missing cards because the triangle should be defined
 	bool fill_3tri_corners(int index)
 	{
-		// check to see the given card is determined
-		// this should be deprecated because it is checked for before the fctn call
-		// but leaving it in just in case
-		if (cards[index].get_det())
+		// get the r/p of the card directly below
+		int r = trind[index].first;
+		int p = trind[index].second;
+
+		// modify r
+		r--;
+
+		// get the new index
+		int idx_new = crd.to_index(r,p);
+
+		// check that the card below is filled
+		if (cards[idx_new].get_det())
 		{
 			// if it is, check the other 2 in the given direction
 			// 3 is hardcoded for this because unique for 3 tris
 			// TODO:90 might not be unique to 3 tris
-			if (chk_corner_tri_dir(index, 3, 0))
+			if (chk_corner_tri_dir(idx_new, 3, 0))
 			{
 				// if both these conditions pass, try to fill the triangle
-				if (fill_3tri_dir(index, 0))
+				if (fill_3tri_dir(idx_new, 0))
 				{
 					// return that a change has occured
 					return true;
