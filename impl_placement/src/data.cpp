@@ -155,7 +155,7 @@ void print_tri_fulltbl(int n, string filename = "")
 	else
 	{
 		// print key
-		cout << "n\t\ttotal\t\tnum top row" << endl;
+		cout << "n\t\ttotal\t\tnum top row" << endl << endl;
 
 		for(int i = 1; i <= n; i++)
 		{

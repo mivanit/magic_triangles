@@ -33,7 +33,7 @@ int main()
 	}
 
 	// print output
-	print_tri_fulltbl(6,"../data/data_summary_1.tsv");
+	// print_tri_fulltbl(6);//"../data/data_summary_1.tsv");
 
 	//pause();
 	return 0;
