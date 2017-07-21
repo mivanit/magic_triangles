@@ -1,4 +1,4 @@
-[     ] remove all extra filling fctn calls
+[*****] remove all extra filling fctn calls
 
 [*    ] go over current TODO comments
 

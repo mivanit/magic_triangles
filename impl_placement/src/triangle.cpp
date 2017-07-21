@@ -166,7 +166,6 @@ public:
 
 				// fill the triangle's cards
 				subtri.fill_tri_loop();
-				this->fill_tri_loop();
 
 				// if not last card, recurse
 				if (x < n)
