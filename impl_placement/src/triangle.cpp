@@ -183,8 +183,8 @@ public:
 				{
 					// DONE: impl chk for triangle filled
 					// its bugged right now and always returns false
-					// if (subtri.chk_all_filled())
-
+					if (subtri.chk_all_filled())
+					{
 						sub_total++;
 
 						// if fill_tbl is enabled,
@@ -200,7 +200,7 @@ public:
 							// iterate top row subtotal
 							tbl[n][get_num_top()+1]++;
 						}
-
+					}
 
 					// draw the triangle
 					// this can be moved as needed, and often is for debugging
@@ -269,25 +269,22 @@ public:
 				{
 					//if it changes, then save that information
 					changed = true;
-					// cout << i << "\tcard filled\n";
 				}
-				// cout << i << "\tcard\t\tNOT filled\n";
-			}
-			else
-			{
-				// if the card is determined,
-				// check for the special 3tri case
+
+
+				// also check for the special 3tri case
 
 				// could make check if the triangle is n > 3
 				// but this only optimizes for small cases that take no time already
-
-				if (fill_3tri_corners(i))
+				// only conduct the check: i is at least 2nd row from top
+				if (i < (k - n))
 				{
-					// if changed, save that information
-					changed = true;
-					// cout << i << "\tcard filled\n";
+					if (fill_3tri_corners(i))
+					{
+						// if changed, save that information
+						changed = true;
+					}
 				}
-				// cout << i << "\tcard\t\tNOT filled\n";
 			}
 		}
 
@@ -365,6 +362,8 @@ public:
 			// if it is, check the other 2 in the given direction
 			// 3 is hardcoded for this because unique for 3 tris
 			// TODO:90 might not be unique to 3 tris
+			// it is ok to check just 1 card of the 3 missing in the center of the 3tri
+			// because if any are filled, the tri will get filled by normal rules
 			if (chk_corner_tri_dir(idx_new, 3, 0))
 			{
 				// if both these conditions pass, try to fill the triangle
@@ -373,10 +372,11 @@ public:
 					// return that a change has occured
 					return true;
 				}
+
+				// if you get to here, no change has occured
+				return false;
 			}
 		}
-		// if you get to here, no change has occured
-		return false;
 	}
 
 
