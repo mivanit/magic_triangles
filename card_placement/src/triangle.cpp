@@ -232,6 +232,8 @@ public:
 		return true;
 	}
 
+
+
 /*
 
 	███████ ██ ██      ██
@@ -241,8 +243,6 @@ public:
 	██      ██ ███████ ███████
 
 */
-
-
 
 	//loop until all determined cards are marked as such
 	void fill_tri_loop()
