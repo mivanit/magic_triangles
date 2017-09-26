@@ -550,6 +550,7 @@ public:
 	// ONLY WORKS FOR ADJACENT COORDS
 	// passes by reference
 	// TODO: rotation code is shit, fix this
+	// TODO: seriously, fix this it's awful. Rotate the whole triangle? or too rescource intensive?
 	void rot(int * r, int * p)
 	{
 		if (*r == *p)
@@ -596,8 +597,6 @@ public:
 					(*r)--;
 				}
 			}
-
-
 
 
 			// iterate p
