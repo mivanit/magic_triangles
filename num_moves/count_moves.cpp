@@ -11,7 +11,7 @@ using std::string;
 void wipe_all();
 void write_to_file(string filename, char d);
 void fill_steps_max(int n);
-void fill_steps_to(int n, int index_start);
+void fill_steps_to(int n);
 int ipow(int base, int exp);
 
 // stores number of steps to get to that index
@@ -25,9 +25,8 @@ int num_calc = 0;
 int main()
 {
 	std::cout << "begin program\n";
-	fill_steps_to(100, 1);
-	std::cout << "steps_to filled to " << num_calc << "\n";
 	fill_steps_max(100);
+	std::cout << "steps_to filled to " << num_calc << "\n";
 	std::cout << "steps_max filled to " << num_calc << "\n";
 	write_to_file("test_100.csv", '\t');
 	std::cout << "outpute printed!\n";
@@ -62,10 +61,7 @@ void write_to_file(string filename, char d)
 void fill_steps_max(int n)
 {
 	// call fill_steps_to if needed
-	if (n > num_calc)
-	{
-		fill_steps_to(n, num_calc);
-	}
+	fill_steps_to(n);
 
 	// var to store maximum
 	int max_so_far = 0;
@@ -74,28 +70,31 @@ void fill_steps_max(int n)
 	int i = 1;
 
 	// loop through each index
-	while(i < (n+2))
+	while( i < (n+2) )
 	{
-		std::cout << max_so_far << "\t" << i << "\t" << n+1 << "\n";
-		std::cout << steps_to[i] << "\n";
-
 		// test for new max
 		if (steps_to[i] > max_so_far)
 		{
 			max_so_far = steps_to[i];
 		}
 
+		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
+
 		// store max in arr
 		steps_max[i] = max_so_far;
 
+		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
+
 		// iterate
 		i++;
+
+		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
 	}
 }
 
 
 // main function to fill
-void fill_steps_to(int n, int index_start)
+void fill_steps_to(int n)
 {
 	// the index 1 is defined as taking 0 steps to fill
 
@@ -103,16 +102,19 @@ void fill_steps_to(int n, int index_start)
 	steps_to = new int[n+1];
 
 	// fill with n, because every element will take at most n-1 steps to reach
-	for(int i = 1; i < n+2; i++)
+	for(int i = 2; i < n+2; i++)
 	{
 		steps_to[i] = n;
 	}
+
+	// make the first element 0
+	steps_to[1] = 0;
 
 	// set num_calc
 	num_calc = n;
 
 	// loop through each index needed
-	for (int i = index_start; i <= n+1; i++)
+	for (int i = 1; i <= n+1; i++)
 	{
 		// get the current step value, add 1 to it to get next step value
 		int k = steps_to[i] + 1;
