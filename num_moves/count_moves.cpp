@@ -25,11 +25,11 @@ int num_calc = 0;
 int main()
 {
 	std::cout << "begin program\n";
-	fill_steps_max(100);
+	fill_steps_max(10000);
 	std::cout << "steps_to filled to " << num_calc << "\n";
 	std::cout << "steps_max filled to " << num_calc << "\n";
-	write_to_file("test_100.csv", '\t');
-	std::cout << "outpute printed!\n";
+	write_to_file("test_10000.csv", '\t');
+	std::cout << "output printed!\n";
 }
 
 // function because im getting weird errors and its 4am
@@ -50,7 +50,7 @@ void write_to_file(string filename, char d)
 	fout << "index" << d << "steps" << d << "max" << '\n';
 
 	// write each line
-	for (int i = 1; i++; i <= num_calc)
+	for (int i = 1; i <= num_calc; i++)
 	{
 		fout << i << d << steps_to[i] << d << steps_max[i] << '\n';
 	}
@@ -60,6 +60,9 @@ void write_to_file(string filename, char d)
 // fill each index with the maximum from steps_to up to that point
 void fill_steps_max(int n)
 {
+	// set num_calc
+	num_calc = n;
+
 	// resize array
 	steps_max = new int[n+1];
 
@@ -106,9 +109,6 @@ void fill_steps_to(int n)
 
 	// make the first element 0
 	steps_to[1] = 0;
-
-	// set num_calc
-	num_calc = n;
 
 	// loop through each index needed
 	for (int i = 1; i <= n+1; i++)
