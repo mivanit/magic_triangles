@@ -25,10 +25,10 @@ int num_calc = 0;
 int main()
 {
 	std::cout << "begin program\n";
-	fill_steps_max(10000);
+	fill_steps_max(1000000);
 	std::cout << "steps_to filled to " << num_calc << "\n";
 	std::cout << "steps_max filled to " << num_calc << "\n";
-	write_to_file("test_10000.csv", '\t');
+	write_to_file("test_1000000.csv", '\t');
 	std::cout << "output printed!\n";
 }
 
