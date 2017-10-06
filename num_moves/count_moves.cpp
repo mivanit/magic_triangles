@@ -60,6 +60,9 @@ void write_to_file(string filename, char d)
 // fill each index with the maximum from steps_to up to that point
 void fill_steps_max(int n)
 {
+	// resize array
+	steps_max = new int[n+1];
+
 	// call fill_steps_to if needed
 	fill_steps_to(n);
 
@@ -78,17 +81,11 @@ void fill_steps_max(int n)
 			max_so_far = steps_to[i];
 		}
 
-		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
-
 		// store max in arr
 		steps_max[i] = max_so_far;
 
-		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
-
 		// iterate
 		i++;
-
-		std::cout << max_so_far << "\t" << i << "\t" << n+2 << "\n";
 	}
 }
 
